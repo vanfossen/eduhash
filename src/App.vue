@@ -2,7 +2,9 @@
 
 <template>
   <div class="flex grow items-center justify-center">
-    <h1 class="text-3xl font-bold underline">Hello world!</h1>
+    <div className="tooltip" data-tip="hello">
+      <button className="btn">Hover me</button>
+    </div>
   </div>
 </template>
 
