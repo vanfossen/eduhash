@@ -3,7 +3,7 @@
 
 <template>
   <div
-    class="flex flex-col items-center rounded-2xl border border-black px-8 py-4 font-mono shadow-2xl"
+    class="my-16 flex flex-col items-center rounded-2xl border border-black px-8 py-4 font-mono shadow-2xl"
   >
     <h1 class="mx-2 my-4 text-2xl">Welcome!</h1>
 

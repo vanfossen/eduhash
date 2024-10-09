@@ -1,8 +1,8 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div class="overflow-x-auto">
-    <table class="table my-16 font-mono">
+  <div class="overflow-x-auto rounded-2xl border border-black">
+    <table class="table font-mono">
       <thead>
         <tr>
           <th>Username</th>
