@@ -2,7 +2,7 @@
 <script setup lang="ts">
 // vue and other libraries
 import { ref } from "vue";
-import { md5Hash } from "./utils.ts";
+import { argon2idHash, md5Hash } from "./utils.ts";
 
 // constants
 const ALGORITHM_LIST = ["MD5", "scrypt", "Argon2id"];
@@ -50,8 +50,10 @@ const handleLogin = async () => {
         entry.value.hash = "(not implemented)";
         break;
       case "Argon2id":
-        entry.value.salt = "(not implemented)";
-        entry.value.hash = "(not implemented)";
+        const argonResult = await argon2idHash(password.value);
+
+        entry.value.salt = argonResult[0];
+        entry.value.hash = argonResult[1];
         break;
       default:
       // code block
