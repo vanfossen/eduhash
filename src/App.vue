@@ -2,6 +2,7 @@
 <script setup lang="ts">
 // vue and other libraries
 import { ref } from "vue";
+import { md5Hash } from "./utils.ts";
 
 // constants
 const ALGORITHM_LIST = ["MD5", "scrypt", "Argon2id"];
@@ -39,12 +40,25 @@ const handleLogin = async () => {
   }
 
   if (username.value && password.value && algorithm.value) {
-    entry.value = {
-      username: username.value,
-      algorithm: algorithm.value,
-      salt: "TODO",
-      hash: "TODO",
-    };
+    switch (algorithm.value) {
+      case "MD5":
+        entry.value.salt = "(not present)";
+        entry.value.hash = await md5Hash(password.value);
+        break;
+      case "scrypt":
+        entry.value.salt = "(not implemented)";
+        entry.value.hash = "(not implemented)";
+        break;
+      case "Argon2id":
+        entry.value.salt = "(not implemented)";
+        entry.value.hash = "(not implemented)";
+        break;
+      default:
+      // code block
+    }
+
+    entry.value.username = username.value;
+    entry.value.algorithm = algorithm.value;
 
     username.value = "";
     password.value = "";
