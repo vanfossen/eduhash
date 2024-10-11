@@ -2,14 +2,14 @@
 <script setup lang="ts">
 // vue and other libraries
 import { ref } from "vue";
-import { argon2idHash, md5Hash } from "./utils.ts";
+import { md5Hash, bcryptHash, argon2idHash } from "./utils.ts";
 
 // constants
-const ALGORITHM_LIST = ["MD5", "scrypt", "Argon2id"];
+const ALGORITHM_LIST = ["MD5", "bcrypt", "Argon2id"];
 
 // variables
-const username = ref("");
-const password = ref("");
+const username = ref("nick");
+const password = ref("pass");
 const algorithm = ref("");
 const entry = ref({
   username: "(no entry)",
@@ -47,10 +47,12 @@ const handleLogin = async () => {
         entry.value.salt64 = "(not present)";
         entry.value.hash = await md5Hash(password.value);
         break;
-      case "scrypt":
-        entry.value.salt16 = "(not implemented)";
-        entry.value.salt64 = "(not implemented)";
-        entry.value.hash = "(not implemented)";
+      case "bcrypt":
+        const bcryptResult = await bcryptHash(password.value);
+
+        entry.value.salt16 = bcryptResult[0];
+        entry.value.salt64 = bcryptResult[1];
+        entry.value.hash = bcryptResult[2];
         break;
       case "Argon2id":
         const argonResult = await argon2idHash(password.value);
@@ -66,9 +68,9 @@ const handleLogin = async () => {
     entry.value.username = username.value;
     entry.value.algorithm = algorithm.value;
 
-    username.value = "";
-    password.value = "";
-    algorithm.value = "";
+    // username.value = "";
+    // password.value = "";
+    // algorithm.value = "";
     error.value = "";
   }
 };
@@ -122,7 +124,7 @@ const handleLogin = async () => {
     </div>
 
     <!-- Crypto.vue -->
-    <div class="overflow-x-auto rounded-2xl border border-black">
+    <div class="w-4/5 overflow-x-auto rounded-2xl border border-black p-2">
       <table class="table font-mono">
         <thead>
           <tr>
