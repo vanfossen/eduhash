@@ -14,7 +14,8 @@ const algorithm = ref("");
 const entry = ref({
   username: "(no entry)",
   algorithm: "(no entry)",
-  salt: "(no entry)",
+  salt16: "(no entry)",
+  salt64: "(no entry)",
   hash: "(no entry)",
 });
 const error = ref("");
@@ -42,18 +43,21 @@ const handleLogin = async () => {
   if (username.value && password.value && algorithm.value) {
     switch (algorithm.value) {
       case "MD5":
-        entry.value.salt = "(not present)";
+        entry.value.salt16 = "(not present)";
+        entry.value.salt64 = "(not present)";
         entry.value.hash = await md5Hash(password.value);
         break;
       case "scrypt":
-        entry.value.salt = "(not implemented)";
+        entry.value.salt16 = "(not implemented)";
+        entry.value.salt64 = "(not implemented)";
         entry.value.hash = "(not implemented)";
         break;
       case "Argon2id":
         const argonResult = await argon2idHash(password.value);
 
-        entry.value.salt = argonResult[0];
-        entry.value.hash = argonResult[1];
+        entry.value.salt16 = argonResult[0];
+        entry.value.salt64 = argonResult[1];
+        entry.value.hash = argonResult[2];
         break;
       default:
       // code block
@@ -124,7 +128,8 @@ const handleLogin = async () => {
           <tr>
             <th>Username</th>
             <th>Algorithm</th>
-            <th>Salt</th>
+            <th>Salt (Hex)</th>
+            <th>Salt (Base64)</th>
             <th>Hash</th>
           </tr>
         </thead>
@@ -132,7 +137,8 @@ const handleLogin = async () => {
           <tr>
             <th>{{ entry.username }}</th>
             <td>{{ entry.algorithm }}</td>
-            <td>{{ entry.salt }}</td>
+            <td>{{ entry.salt16 }}</td>
+            <td>{{ entry.salt64 }}</td>
             <td>{{ entry.hash }}</td>
           </tr>
         </tbody>
