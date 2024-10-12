@@ -7,12 +7,20 @@ import { md5Hash, bcryptHash, argon2idHash } from "./utils.ts";
 // constants
 const ALGORITHM_LIST = ["MD5", "bcrypt", "Argon2id"];
 
+interface Entry {
+  username: string;
+  algorithm: string;
+  salt16: string;
+  salt64: string;
+  hash: string;
+}
+
 // variables
-const username = ref("");
-const password = ref("");
-const algorithm = ref([]);
-const entry = ref([]);
-const error = ref("");
+const username = ref<string>("");
+const password = ref<string>("");
+const algorithm = ref<string[]>([]);
+const entry = ref<Entry[]>([]);
+const error = ref<string>("");
 
 // function that handles login actions
 const handleLogin = async () => {
@@ -145,7 +153,7 @@ const handleLogin = async () => {
           </tr>
         </thead>
         <tbody>
-          <tr v-for="item in entry" :key="item.username">
+          <tr v-for="item in entry" :key="item.algorithm">
             <th>{{ item.username }}</th>
             <td>{{ item.algorithm }}</td>
             <td>{{ item.salt16 }}</td>
