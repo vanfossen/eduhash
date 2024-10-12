@@ -8,16 +8,10 @@ import { md5Hash, bcryptHash, argon2idHash } from "./utils.ts";
 const ALGORITHM_LIST = ["MD5", "bcrypt", "Argon2id"];
 
 // variables
-const username = ref("nick");
-const password = ref("pass");
-const algorithm = ref("");
-const entry = ref({
-  username: "(no entry)",
-  algorithm: "(no entry)",
-  salt16: "(no entry)",
-  salt64: "(no entry)",
-  hash: "(no entry)",
-});
+const username = ref("");
+const password = ref("");
+const algorithm = ref([]);
+const entry = ref([]);
 const error = ref("");
 
 // function that handles login actions
@@ -34,53 +28,65 @@ const handleLogin = async () => {
     return;
   }
 
-  // TODO - add regex for valid password characters
-  if (!algorithm.value) {
-    error.value = "Algorithm is required.";
+  // TODO - possible more error checking
+  if (algorithm.value.length < 1) {
+    error.value = "At least one algorithm is required.";
     return;
   }
 
-  if (username.value && password.value && algorithm.value) {
-    switch (algorithm.value) {
-      case "MD5":
-        entry.value.salt16 = "(not present)";
-        entry.value.salt64 = "(not present)";
-        entry.value.hash = await md5Hash(password.value);
-        break;
-      case "bcrypt":
-        const bcryptResult = await bcryptHash(password.value);
+  if (username.value && password.value && algorithm.value.length > 0) {
+    // clear old table and/or error
+    entry.value = [];
+    error.value = "";
 
-        entry.value.salt16 = bcryptResult[0];
-        entry.value.salt64 = bcryptResult[1];
-        entry.value.hash = bcryptResult[2];
-        break;
-      case "Argon2id":
-        const argonResult = await argon2idHash(password.value);
-
-        entry.value.salt16 = argonResult[0];
-        entry.value.salt64 = argonResult[1];
-        entry.value.hash = argonResult[2];
-        break;
-      default:
-      // code block
+    // MD5
+    if (algorithm.value.includes("MD5")) {
+      entry.value.push({
+        username: username.value,
+        algorithm: "MD5",
+        salt16: "(not present)",
+        salt64: "(not present)",
+        hash: await md5Hash(password.value),
+      });
     }
 
-    entry.value.username = username.value;
-    entry.value.algorithm = algorithm.value;
+    // bcrypt
+    if (algorithm.value.includes("bcrypt")) {
+      const bcryptResult = await bcryptHash(password.value);
+      entry.value.push({
+        username: username.value,
+        algorithm: "bcrypt",
+        salt16: bcryptResult[0],
+        salt64: bcryptResult[1],
+        hash: bcryptResult[2],
+      });
+    }
 
-    // username.value = "";
-    // password.value = "";
-    // algorithm.value = "";
-    error.value = "";
+    // Argon2id
+    if (algorithm.value.includes("Argon2id")) {
+      const argonResult = await argon2idHash(password.value);
+      entry.value.push({
+        username: username.value,
+        algorithm: "Argon2id",
+        salt16: argonResult[0],
+        salt64: argonResult[1],
+        hash: argonResult[2],
+      });
+    }
+
+    // clear login field
+    username.value = "";
+    password.value = "";
+    algorithm.value = [];
   }
 };
 </script>
 
 <template>
-  <div class="flex grow flex-col items-center justify-center">
+  <div class="flex grow flex-col items-center justify-center font-mono">
     <!-- Login.vue -->
     <div
-      class="my-16 flex flex-col items-center rounded-2xl border border-black px-8 py-4 font-mono shadow-2xl"
+      class="my-16 flex flex-col items-center rounded-2xl border border-black px-8 py-4 shadow-2xl"
     >
       <h1 class="mx-2 my-4 text-2xl">Welcome!</h1>
 
@@ -108,7 +114,7 @@ const handleLogin = async () => {
           <input
             v-model="algorithm"
             class="btn join-item"
-            type="radio"
+            type="checkbox"
             name="options"
             :value="alg"
             :aria-label="alg"
@@ -117,15 +123,18 @@ const handleLogin = async () => {
       </div>
 
       <!-- Display error message -->
-      <p class="my-2 text-sm text-error" v-if="error">{{ error }}</p>
+      <div class="badge badge-error my-2" v-if="error">{{ error }}</div>
 
       <!-- login -->
       <button class="btn btn-wide my-2" @click="handleLogin">Login</button>
     </div>
 
     <!-- Crypto.vue -->
-    <div class="w-4/5 overflow-x-auto rounded-2xl border border-black p-2">
-      <table class="table font-mono">
+    <div
+      v-if="entry.length > 0"
+      class="w-4/5 overflow-x-auto rounded-2xl border border-black bg-base-200 p-2"
+    >
+      <table class="table">
         <thead>
           <tr>
             <th>Username</th>
@@ -136,15 +145,22 @@ const handleLogin = async () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th>{{ entry.username }}</th>
-            <td>{{ entry.algorithm }}</td>
-            <td>{{ entry.salt16 }}</td>
-            <td>{{ entry.salt64 }}</td>
-            <td>{{ entry.hash }}</td>
+          <tr v-for="item in entry" :key="item.username">
+            <th>{{ item.username }}</th>
+            <td>{{ item.algorithm }}</td>
+            <td>{{ item.salt16 }}</td>
+            <td>{{ item.salt64 }}</td>
+            <td>{{ item.hash }}</td>
           </tr>
         </tbody>
       </table>
+    </div>
+
+    <div
+      v-else
+      class="card grid place-items-center rounded-box bg-base-200 px-16 py-8"
+    >
+      Complete login prompt to view table
     </div>
   </div>
 </template>
