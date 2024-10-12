@@ -3,6 +3,8 @@
 // vue and other libraries
 import { ref } from "vue";
 import { md5Hash, bcryptHash, argon2idHash } from "./utils.ts";
+import Navbar from "./components/Navbar.vue";
+import Footer from "./components/Footer.vue";
 
 // constants
 const ALGORITHM_LIST = ["MD5", "bcrypt", "Argon2id"];
@@ -91,6 +93,8 @@ const handleLogin = async () => {
 </script>
 
 <template>
+  <Navbar />
+
   <div class="flex grow flex-col items-center justify-center font-mono">
     <!-- Login.vue -->
     <div
@@ -171,6 +175,8 @@ const handleLogin = async () => {
       Complete login prompt to view table
     </div>
   </div>
+
+  <Footer />
 </template>
 
 <style scoped></style>
