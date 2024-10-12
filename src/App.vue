@@ -5,6 +5,7 @@ import { ref } from "vue";
 import { md5Hash, bcryptHash, argon2idHash } from "./utils.ts";
 import Navbar from "./components/Navbar.vue";
 import Footer from "./components/Footer.vue";
+import Warning from "./components/Warning.vue";
 
 // constants
 const ALGORITHM_LIST = ["MD5", "bcrypt", "Argon2id"];
@@ -94,6 +95,8 @@ const handleLogin = async () => {
 
 <template>
   <Navbar />
+
+  <Warning />
 
   <div class="flex grow flex-col items-center justify-center font-mono">
     <!-- Login.vue -->
