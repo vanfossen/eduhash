@@ -50,8 +50,8 @@ function uIntArray8toBase64Bcrypt(uint8Array: Uint8Array) {
  * Hash functions
  * --------------
  */
-export async function md5Hash(password: string): Promise<string> {
-  return await md5(password);
+export async function md5Hash(password: string): Promise<[string]> {
+  return [await md5(password)];
 }
 
 export async function bcryptHash(
@@ -61,14 +61,14 @@ export async function bcryptHash(
   window.crypto.getRandomValues(salt);
 
   return [
-    uIntArray8ToBase16(salt),
-    uIntArray8toBase64Bcrypt(salt),
     await bcrypt({
       password: password,
       salt,
       costFactor: 11,
       outputType: "encoded",
     }),
+    uIntArray8ToBase16(salt),
+    uIntArray8toBase64Bcrypt(salt),
   ];
 }
 
@@ -79,8 +79,6 @@ export async function argon2idHash(
   window.crypto.getRandomValues(salt);
 
   return [
-    uIntArray8ToBase16(salt),
-    uIntArray8ToBase64(salt),
     await argon2id({
       password: password,
       salt,
@@ -90,5 +88,7 @@ export async function argon2idHash(
       hashLength: 32,
       outputType: "encoded",
     }),
+    uIntArray8ToBase16(salt),
+    uIntArray8ToBase64(salt),
   ];
 }

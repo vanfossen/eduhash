@@ -33,9 +33,13 @@ const output = ref<Output[]>([]);
 const error = ref<string>("");
 const loading = ref<boolean>(false);
 
+// TODO - comment
 const validateInput = (): string => {
+  // TODO - add regex for valid username characters
   if (!input.value.username) return "Username is required.";
+  // TODO - add regex for valid password characters
   if (!input.value.password) return "Password is required.";
+  // TODO - possible more error checking
   if (input.value.algorithm.length < 1)
     return "At least one algorithm is required.";
   return "";
@@ -43,35 +47,33 @@ const validateInput = (): string => {
 
 // function that handles login actions
 const handleLogin = async () => {
-  // TODO - add regex for valid username characters
-  // TODO - add regex for valid password characters
-  // TODO - possible more error checking
   const errorMessage = validateInput();
   if (errorMessage) {
     error.value = errorMessage;
     return;
   }
 
+  // TODO - comment
   if (
     input.value.username &&
     input.value.password &&
     input.value.algorithm.length > 0
   ) {
-    // start loading
+    // clear previous login
     loading.value = true;
-
-    // clear old table and/or error
     output.value = [];
     error.value = "";
 
     // MD5
     if (input.value.algorithm.includes("MD5")) {
+      const md5Result = await md5Hash(input.value.password);
+
       output.value.push({
         username: input.value.username,
         algorithm: "MD5",
+        hash: md5Result[0],
         salt16: "(not present)",
         salt64: "(not present)",
-        hash: await md5Hash(input.value.password),
       });
     }
 
@@ -81,9 +83,9 @@ const handleLogin = async () => {
       output.value.push({
         username: input.value.username,
         algorithm: "bcrypt",
-        salt16: bcryptResult[0],
-        salt64: bcryptResult[1],
-        hash: bcryptResult[2],
+        hash: bcryptResult[0],
+        salt16: bcryptResult[1],
+        salt64: bcryptResult[2],
       });
     }
 
@@ -93,13 +95,13 @@ const handleLogin = async () => {
       output.value.push({
         username: input.value.username,
         algorithm: "Argon2id",
-        salt16: argonResult[0],
-        salt64: argonResult[1],
-        hash: argonResult[2],
+        hash: argonResult[0],
+        salt16: argonResult[1],
+        salt64: argonResult[2],
       });
     }
 
-    // clear login field
+    // clear login
     input.value = { username: "", password: "", algorithm: [] };
 
     // disable loading
