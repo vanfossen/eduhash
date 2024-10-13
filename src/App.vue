@@ -13,7 +13,13 @@ import Warning from "./components/Warning.vue";
 const ALGORITHM_LIST = ["MD5", "bcrypt", "Argon2id"];
 
 // interfaces
-interface Entry {
+interface Input {
+  username: string;
+  password: string;
+  algorithm: string[];
+}
+
+interface Output {
   username: string;
   algorithm: string;
   salt16: string;
@@ -22,53 +28,58 @@ interface Entry {
 }
 
 // variables
-const username = ref<string>("");
-const password = ref<string>("");
-const algorithm = ref<string[]>([]);
-const entry = ref<Entry[]>([]);
+const input = ref<Input>({ username: "", password: "", algorithm: [] });
+const output = ref<Output[]>([]);
 const error = ref<string>("");
+const loading = ref<boolean>(false);
+
+const validateInput = (): string => {
+  if (!input.value.username) return "Username is required.";
+  if (!input.value.password) return "Password is required.";
+  if (input.value.algorithm.length < 1)
+    return "At least one algorithm is required.";
+  return "";
+};
 
 // function that handles login actions
 const handleLogin = async () => {
   // TODO - add regex for valid username characters
-  if (!username.value) {
-    error.value = "Username is required.";
-    return;
-  }
-
   // TODO - add regex for valid password characters
-  if (!password.value) {
-    error.value = "Password is required.";
-    return;
-  }
-
   // TODO - possible more error checking
-  if (algorithm.value.length < 1) {
-    error.value = "At least one algorithm is required.";
+  const errorMessage = validateInput();
+  if (errorMessage) {
+    error.value = errorMessage;
     return;
   }
 
-  if (username.value && password.value && algorithm.value.length > 0) {
+  if (
+    input.value.username &&
+    input.value.password &&
+    input.value.algorithm.length > 0
+  ) {
+    // start loading
+    loading.value = true;
+
     // clear old table and/or error
-    entry.value = [];
+    output.value = [];
     error.value = "";
 
     // MD5
-    if (algorithm.value.includes("MD5")) {
-      entry.value.push({
-        username: username.value,
+    if (input.value.algorithm.includes("MD5")) {
+      output.value.push({
+        username: input.value.username,
         algorithm: "MD5",
         salt16: "(not present)",
         salt64: "(not present)",
-        hash: await md5Hash(password.value),
+        hash: await md5Hash(input.value.password),
       });
     }
 
     // bcrypt
-    if (algorithm.value.includes("bcrypt")) {
-      const bcryptResult = await bcryptHash(password.value);
-      entry.value.push({
-        username: username.value,
+    if (input.value.algorithm.includes("bcrypt")) {
+      const bcryptResult = await bcryptHash(input.value.password);
+      output.value.push({
+        username: input.value.username,
         algorithm: "bcrypt",
         salt16: bcryptResult[0],
         salt64: bcryptResult[1],
@@ -77,10 +88,10 @@ const handleLogin = async () => {
     }
 
     // Argon2id
-    if (algorithm.value.includes("Argon2id")) {
-      const argonResult = await argon2idHash(password.value);
-      entry.value.push({
-        username: username.value,
+    if (input.value.algorithm.includes("Argon2id")) {
+      const argonResult = await argon2idHash(input.value.password);
+      output.value.push({
+        username: input.value.username,
         algorithm: "Argon2id",
         salt16: argonResult[0],
         salt64: argonResult[1],
@@ -89,9 +100,10 @@ const handleLogin = async () => {
     }
 
     // clear login field
-    username.value = "";
-    password.value = "";
-    algorithm.value = [];
+    input.value = { username: "", password: "", algorithm: [] };
+
+    // disable loading
+    loading.value = false;
   }
 };
 </script>
@@ -110,7 +122,7 @@ const handleLogin = async () => {
 
       <!-- username -->
       <input
-        v-model="username"
+        v-model="input.username"
         id="username"
         type="text"
         placeholder="Username"
@@ -119,7 +131,7 @@ const handleLogin = async () => {
 
       <!-- password -->
       <input
-        v-model="password"
+        v-model="input.password"
         id="password"
         type="password"
         placeholder="Password"
@@ -130,7 +142,7 @@ const handleLogin = async () => {
       <div class="join my-2">
         <label v-for="alg in ALGORITHM_LIST" :key="alg">
           <input
-            v-model="algorithm"
+            v-model="input.algorithm"
             class="btn join-item"
             type="checkbox"
             name="options"
@@ -149,10 +161,11 @@ const handleLogin = async () => {
 
     <!-- Crypto.vue -->
     <div
-      v-if="entry.length > 0"
-      class="w-4/5 overflow-x-auto rounded-2xl border border-black bg-base-200 p-2"
+      class="w-4/5 max-w-fit overflow-x-auto rounded-2xl border border-black bg-base-200 px-4 py-2"
     >
-      <table class="table">
+      <span v-if="loading" class="loading loading-bars loading-lg"></span>
+
+      <table v-else-if="output.length > 0" class="table">
         <thead>
           <tr>
             <th>Username</th>
@@ -163,7 +176,7 @@ const handleLogin = async () => {
           </tr>
         </thead>
         <tbody>
-          <tr v-for="item in entry" :key="item.algorithm">
+          <tr v-for="item in output" :key="item.algorithm">
             <th>{{ item.username }}</th>
             <td>{{ item.algorithm }}</td>
             <td>{{ item.salt16 }}</td>
@@ -172,13 +185,8 @@ const handleLogin = async () => {
           </tr>
         </tbody>
       </table>
-    </div>
 
-    <div
-      v-else
-      class="card grid place-items-center rounded-box bg-base-200 px-16 py-8"
-    >
-      Complete login prompt to view table
+      <span v-else> Complete login prompt to view table </span>
     </div>
   </div>
 
