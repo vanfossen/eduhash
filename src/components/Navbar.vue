@@ -28,24 +28,26 @@
         <div class="modal-box">
           <form method="dialog">
             <button
-              class="btn btn-circle btn-ghost btn-sm absolute right-2 top-2"
+              class="btn btn-circle btn-ghost btn-sm absolute right-4 top-4"
             >
               ✕
             </button>
           </form>
-          <h3 class="text-lg font-bold">Welcome to EduHash!</h3>
-          <p class="py-4">
+          <h3 class="pb-4 text-lg font-bold">Welcome to EduHash!</h3>
+          <p>
             This web application is designed to help you learn about password
             security and hashing algorithms in a safe and interactive
             environment.
           </p>
-          <p class="py-4">
+          <div class="divider"></div>
+          <p>
             <b>Important Security Note:</b> This application is for educational
             purposes only. Please do not enter any real passwords or personal,
             sensitive, or confidential information. Use this tool to experiment
             with example passwords and learn about password hashing safely!
           </p>
-          <p class="py-4">
+          <div class="divider"></div>
+          <p>
             <b>Cookies/Local Storage:</b> This application uses
             <strong class="text-info">localStorage</strong> to remember if you
             have dismissed the security warning. This helps avoid showing the
