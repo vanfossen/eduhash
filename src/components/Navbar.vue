@@ -49,10 +49,16 @@
           <div class="divider"></div>
           <p>
             <b>Cookies/Local Storage:</b> This application uses
-            <strong class="text-info">localStorage</strong> to remember if you
-            have dismissed the security warning. This helps avoid showing the
-            warning again during your next visit. Your data is stored locally on
-            your device and is not shared with any third parties.
+            <a
+              href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage"
+              target="_blank"
+              class="link-hover link link-info"
+              >localStorage</a
+            >
+            to remember if you have dismissed the security warning. This helps
+            avoid showing the warning again during your next visit. Your data is
+            stored locally on your device and is not shared with any third
+            parties.
           </p>
         </div>
       </dialog>
