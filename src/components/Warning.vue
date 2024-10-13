@@ -1,18 +1,26 @@
 <!-- Warning.vue -->
 <script setup lang="ts">
 // vue and other libraries
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 
 // variables
-const warning = ref<boolean>(true);
+const showWarning = ref<boolean>(true);
+
+onMounted(() => {
+  const warningDismissed = localStorage.getItem("warningDismissed");
+  if (warningDismissed) {
+    showWarning.value = false;
+  }
+});
 
 const hideWarning = () => {
-  warning.value = false;
+  showWarning.value = false;
+  localStorage.setItem("warningDismissed", "true");
 };
 </script>
 
 <template>
-  <div v-if="warning" role="alert" class="alert alert-warning">
+  <div v-if="showWarning" role="alert" class="alert alert-warning font-mono">
     <!-- heroicons | shield-exclamation -->
     <svg
       xmlns="http://www.w3.org/2000/svg"
