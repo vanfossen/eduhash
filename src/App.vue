@@ -3,6 +3,8 @@
 // vue and other libraries
 import { ref } from "vue";
 import { md5Hash, bcryptHash, argon2idHash } from "./utils.ts";
+
+// components
 import Navbar from "./components/Navbar.vue";
 import Footer from "./components/Footer.vue";
 import Warning from "./components/Warning.vue";
@@ -10,6 +12,7 @@ import Warning from "./components/Warning.vue";
 // constants
 const ALGORITHM_LIST = ["MD5", "bcrypt", "Argon2id"];
 
+// interfaces
 interface Entry {
   username: string;
   algorithm: string;
