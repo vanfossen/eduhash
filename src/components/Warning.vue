@@ -1,8 +1,18 @@
 <!-- Warning.vue -->
-<script setup lang="ts"></script>
+<script setup lang="ts">
+// vue and other libraries
+import { ref } from "vue";
+
+// variables
+const warning = ref<boolean>(true);
+
+const hideWarning = () => {
+  warning.value = false;
+};
+</script>
 
 <template>
-  <div role="alert" class="alert alert-warning">
+  <div v-if="warning" role="alert" class="alert alert-warning">
     <!-- heroicons | shield-exclamation -->
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -19,7 +29,29 @@
       />
     </svg>
 
-    <span>Warning: Do not enter and </span>
+    <p>
+      This application is for educational purposes only. Please do not enter any
+      real passwords or personal, sensitive, or confidential information. Use
+      this tool to experiment with example passwords and learn about password
+      hashing safely!
+    </p>
+
+    <button class="btn btn-circle btn-warning" @click="hideWarning">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-6 w-6"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M6 18L18 6M6 6l12 12"
+        />
+      </svg>
+    </button>
   </div>
 </template>
 
