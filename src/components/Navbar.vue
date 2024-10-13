@@ -7,7 +7,7 @@
       <a class="btn btn-ghost text-xl">EduHash</a>
     </div>
     <div class="flex-none">
-      <button class="btn btn-square btn-ghost">
+      <button class="btn btn-square btn-ghost" onclick="infoModal.showModal()">
         <!-- heroicons | information-circle -->
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -24,6 +24,29 @@
           />
         </svg>
       </button>
+      <dialog id="infoModal" class="modal">
+        <div class="modal-box">
+          <form method="dialog">
+            <button
+              class="btn btn-circle btn-ghost btn-sm absolute right-2 top-2"
+            >
+              ✕
+            </button>
+          </form>
+          <h3 class="text-lg font-bold">Welcome to EduHash!</h3>
+          <p class="py-4">
+            Welcome to the EduHash! This web application is designed to help you
+            learn about password security and hashing algorithms in a safe and
+            interactive environment.
+          </p>
+          <p class="py-4">
+            <b>Important Note:</b> This application is for educational purposes
+            only. Please do not enter any real passwords or personal, sensitive,
+            or confidential information. Use this tool to experiment with
+            example passwords and learn about password hashing safely!
+          </p>
+        </div>
+      </dialog>
     </div>
   </div>
 </template>
