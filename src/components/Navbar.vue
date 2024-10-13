@@ -2,7 +2,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div class="navbar bg-base-200">
+  <div class="navbar bg-base-200 font-mono">
     <div class="flex-1">
       <a class="btn btn-ghost text-xl">EduHash</a>
     </div>
@@ -35,15 +35,22 @@
           </form>
           <h3 class="text-lg font-bold">Welcome to EduHash!</h3>
           <p class="py-4">
-            Welcome to the EduHash! This web application is designed to help you
-            learn about password security and hashing algorithms in a safe and
-            interactive environment.
+            This web application is designed to help you learn about password
+            security and hashing algorithms in a safe and interactive
+            environment.
           </p>
           <p class="py-4">
-            <b>Important Note:</b> This application is for educational purposes
-            only. Please do not enter any real passwords or personal, sensitive,
-            or confidential information. Use this tool to experiment with
-            example passwords and learn about password hashing safely!
+            <b>Important Security Note:</b> This application is for educational
+            purposes only. Please do not enter any real passwords or personal,
+            sensitive, or confidential information. Use this tool to experiment
+            with example passwords and learn about password hashing safely!
+          </p>
+          <p class="py-4">
+            <b>Cookies/Local Storage:</b> This application uses
+            <strong class="text-info">localStorage</strong> to remember if you
+            have dismissed the security warning. This helps avoid showing the
+            warning again during your next visit. Your data is stored locally on
+            your device and is not shared with any third parties.
           </p>
         </div>
       </dialog>
