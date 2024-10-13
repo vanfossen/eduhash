@@ -11,14 +11,14 @@
         <a
           href="https://github.com/vanfossen/vite-vue-ts-tailwind"
           target="_blank"
-          class="link-hover link link-primary"
+          class="link-hover link link-info"
           >GitHub</a
         >
         with a
         <a
           href="https://github.com/vanfossen/vite-vue-ts-tailwind/blob/main/LICENSE"
           target="_blank"
-          class="link-hover link link-primary"
+          class="link-hover link link-info"
           >MIT license</a
         >.
       </p>
