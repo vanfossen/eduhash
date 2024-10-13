@@ -1,5 +1,8 @@
 <!-- Navbar.vue -->
-<script setup lang="ts"></script>
+<script setup lang="ts">
+// components
+import ThemeController from "./ThemeController.vue";
+</script>
 
 <template>
   <div class="navbar bg-base-200 font-mono">
@@ -60,6 +63,8 @@
             stored locally on your device and is not shared with any third
             parties.
           </p>
+          <div class="divider"></div>
+          <ThemeController />
         </div>
       </dialog>
     </div>
