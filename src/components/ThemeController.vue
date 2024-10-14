@@ -1,10 +1,23 @@
 <!-- ThemeController.vue -->
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, watch } from "vue";
 
-const isDark = ref<boolean>(
-  window.matchMedia("(prefers-color-scheme: dark)").matches,
-);
+const themeStorage = localStorage.getItem("theme");
+const isDark = ref<boolean>(false);
+
+if (themeStorage) {
+  isDark.value = themeStorage === "dark" ? true : false;
+} else {
+  isDark.value = window.matchMedia("(prefers-color-scheme: dark)").matches;
+}
+
+watch(isDark, (newValue) => {
+  localStorage.setItem("theme", newValue ? "dark" : "light");
+});
+
+const toggleTheme = () => {
+  isDark.value = !isDark.value;
+};
 </script>
 
 <template>
@@ -19,6 +32,7 @@ const isDark = ref<boolean>(
         aria-label="Light"
         value="light"
         :checked="!isDark"
+        @click="toggleTheme"
       />
       <input
         type="radio"
@@ -27,6 +41,7 @@ const isDark = ref<boolean>(
         aria-label="Dark"
         value="dark"
         :checked="isDark"
+        @click="toggleTheme"
       />
     </div>
   </div>
