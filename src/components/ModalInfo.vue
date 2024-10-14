@@ -30,31 +30,51 @@ import ThemeController from "./ThemeController.vue";
         </button>
       </form>
       <h1 class="pb-4 text-lg font-bold">Welcome to EduHash!</h1>
-      <p>
-        This web application is designed to help you learn about password
-        security and hashing algorithms in a safe and interactive environment.
-      </p>
+      <div>
+        <p>
+          This web application is designed to help you learn about password
+          security and hashing algorithms in a safe and interactive environment.
+        </p>
+      </div>
       <div class="divider"></div>
-      <p>
-        <span class="font-bold">Important Security Note:</span> This application
-        is for educational purposes only. Please do not enter any real passwords
-        or personal, sensitive, or confidential information. Use this tool to
-        experiment with example passwords and learn about password hashing
-        safely!
-      </p>
+      <div>
+        <p>
+          <span class="font-bold">Important Security Note:</span> This
+          application is for educational purposes only. Please do not enter any
+          real passwords or personal, sensitive, or confidential information.
+          Use this tool to experiment with example passwords and learn about
+          password hashing safely!
+        </p>
+      </div>
       <div class="divider"></div>
-      <p>
-        <span class="font-bold">Local Storage:</span> This application uses
-        <a
-          href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage"
-          target="_blank"
-          class="link-hover link link-info"
-          >localStorage</a
-        >
-        to remember if you have dismissed the security warning. This helps avoid
-        showing the warning again during your next visit. Your data is stored
-        locally on your device and is not shared with any third parties.
-      </p>
+      <div>
+        <p>
+          <span class="font-bold">Local Storage:</span> This application uses
+          <a
+            href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage"
+            target="_blank"
+            class="link-hover link link-info"
+            >localStorage</a
+          >
+          to:
+        </p>
+
+        <ul class="list-disc pl-8">
+          <li>
+            Remember if you have dismissed the security warning. This helps
+            avoid showing the warning again during your next visit.
+          </li>
+          <li>
+            Remember your theme preference. This ensures your chosen theme is
+            applied during your next visit.
+          </li>
+        </ul>
+
+        <p>
+          Your data is stored locally on your device and is not shared with any
+          third parties.
+        </p>
+      </div>
       <div class="divider"></div>
       <ThemeController />
     </div>
