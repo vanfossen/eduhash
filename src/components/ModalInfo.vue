@@ -37,45 +37,57 @@ import ThemeController from "./ThemeController.vue";
         </p>
       </div>
       <div class="divider"></div>
-      <div>
-        <p>
-          <span class="font-bold">Important Security Note:</span> This
-          application is for educational purposes only. Please do not enter any
-          real passwords or personal, sensitive, or confidential information.
-          Use this tool to experiment with example passwords and learn about
-          password hashing safely!
-        </p>
-      </div>
-      <div class="divider"></div>
-      <div>
-        <p>
-          <span class="font-bold">Local Storage:</span> This application uses
-          <a
-            href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage"
-            target="_blank"
-            class="link-hover link link-info"
-            >localStorage</a
-          >
-          to:
-        </p>
 
-        <ul class="list-disc pl-8">
-          <li>
-            Remember if you have dismissed the security warning. This helps
-            avoid showing the warning again during your next visit.
-          </li>
-          <li>
-            Remember your theme preference. This ensures your chosen theme is
-            applied during your next visit.
-          </li>
-        </ul>
-
-        <p>
-          Your data is stored locally on your device and is not shared with any
-          third parties.
-        </p>
+      <div class="collapse collapse-arrow bg-base-200">
+        <input type="checkbox" />
+        <div class="collapse-title font-bold">Important Security Note:</div>
+        <div class="collapse-content">
+          <p>
+            This application is for educational purposes only. Please do not
+            enter any real passwords or personal, sensitive, or confidential
+            information. Use this tool to experiment with example passwords and
+            learn about password hashing safely!
+          </p>
+        </div>
       </div>
+
       <div class="divider"></div>
+
+      <div class="collapse collapse-arrow bg-base-200">
+        <input type="checkbox" />
+        <div class="collapse-title font-bold">Local Storage:</div>
+        <div class="collapse-content">
+          <p>
+            This application uses
+            <a
+              href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage"
+              target="_blank"
+              class="link-hover link link-info"
+              >localStorage</a
+            >
+            to:
+          </p>
+
+          <ul class="list-disc pl-8">
+            <li>
+              Remember if you have dismissed the security warning. This helps
+              avoid showing the warning again during your next visit.
+            </li>
+            <li>
+              Remember your theme preference. This ensures your chosen theme is
+              applied during your next visit.
+            </li>
+          </ul>
+
+          <p>
+            Your data is stored locally on your device and is not shared with
+            any third parties.
+          </p>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
       <ThemeController />
     </div>
   </dialog>
