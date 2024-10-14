@@ -1,41 +1,35 @@
 <!-- ThemeController.vue -->
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref } from "vue";
+
+const isDark = ref<boolean>(
+  window.matchMedia("(prefers-color-scheme: dark)").matches,
+);
+</script>
 
 <template>
-  <label class="flex cursor-pointer justify-center gap-2">
-    <!-- light theme icon -->
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="20"
-      height="20"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    >
-      <circle cx="12" cy="12" r="5" />
-      <path
-        d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"
+  <div class="flex flex-col items-center justify-center font-mono">
+    <p class="mb-2 font-bold">Theme</p>
+
+    <div class="join join-horizontal">
+      <input
+        type="radio"
+        name="theme-buttons"
+        class="theme-controller btn join-item"
+        aria-label="Light"
+        value="light"
+        :checked="!isDark"
       />
-    </svg>
-    <input type="checkbox" class="theme-controller toggle" value="light" />
-    <!-- dark theme icon -->
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="20"
-      height="20"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    >
-      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-    </svg>
-  </label>
+      <input
+        type="radio"
+        name="theme-buttons"
+        class="theme-controller btn join-item"
+        aria-label="Dark"
+        value="dark"
+        :checked="isDark"
+      />
+    </div>
+  </div>
 </template>
 
 <style scoped></style>
