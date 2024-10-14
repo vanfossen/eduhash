@@ -36,7 +36,7 @@ import ThemeController from "./ThemeController.vue";
               ✕
             </button>
           </form>
-          <h3 class="pb-4 text-lg font-bold">Welcome to EduHash!</h3>
+          <h1 class="pb-4 text-lg font-bold">Welcome to EduHash!</h1>
           <p>
             This web application is designed to help you learn about password
             security and hashing algorithms in a safe and interactive
@@ -44,14 +44,15 @@ import ThemeController from "./ThemeController.vue";
           </p>
           <div class="divider"></div>
           <p>
-            <b>Important Security Note:</b> This application is for educational
-            purposes only. Please do not enter any real passwords or personal,
-            sensitive, or confidential information. Use this tool to experiment
-            with example passwords and learn about password hashing safely!
+            <span class="font-bold">Important Security Note:</span> This
+            application is for educational purposes only. Please do not enter
+            any real passwords or personal, sensitive, or confidential
+            information. Use this tool to experiment with example passwords and
+            learn about password hashing safely!
           </p>
           <div class="divider"></div>
           <p>
-            <b>Cookies/Local Storage:</b> This application uses
+            <span class="font-bold">Local Storage:</span> This application uses
             <a
               href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage"
               target="_blank"
