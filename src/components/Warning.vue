@@ -7,15 +7,15 @@ import { ref, onMounted } from "vue";
 const showWarning = ref<boolean>(true);
 
 onMounted(() => {
-  const warningDismissed = localStorage.getItem("warningDismissed");
-  if (warningDismissed) {
+  const isWarningDismissed = localStorage.getItem("isWarningDismissed");
+  if (isWarningDismissed) {
     showWarning.value = false;
   }
 });
 
 const hideWarning = () => {
   showWarning.value = false;
-  localStorage.setItem("warningDismissed", "true");
+  localStorage.setItem("isWarningDismissed", "true");
 };
 </script>
 
