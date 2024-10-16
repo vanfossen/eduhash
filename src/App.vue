@@ -7,7 +7,6 @@ import { md5Hash, bcryptHash, scryptHash, argon2idHash } from "./utils.ts";
 // components
 import Navbar from "./components/Navbar.vue";
 import Footer from "./components/Footer.vue";
-import Warning from "./components/Warning.vue";
 
 // interfaces
 interface AlgorithmOutput {
@@ -65,8 +64,6 @@ const handleHash = async () => {
 
 <template>
   <Navbar />
-
-  <Warning />
 
   <div class="flex grow flex-col items-center justify-center font-mono">
     <!-- Input.vue -->
