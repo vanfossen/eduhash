@@ -109,10 +109,6 @@ import ThemeController from "./ThemeController.vue";
 
           <ul class="list-disc pl-8">
             <li>
-              Remember if you have dismissed the security warning. This helps
-              avoid showing the warning again during your next visit.
-            </li>
-            <li>
               Remember your theme preference. This ensures your chosen theme is
               applied during your next visit.
             </li>
