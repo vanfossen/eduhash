@@ -7,7 +7,7 @@ import ModalInfo from "./ModalInfo.vue";
 <template>
   <div class="navbar bg-base-200 font-mono">
     <div class="flex-1">
-      <a class="btn btn-ghost text-xl">EduHash</a>
+      <span class="px-3 text-xl font-bold">EduHash</span>
     </div>
     <div class="flex-none">
       <ModalInfo />
