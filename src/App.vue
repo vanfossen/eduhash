@@ -104,7 +104,26 @@ const handleHash = async () => {
           checked
         />
         <div role="tabpanel" class="tab-content p-10">
-          <span v-if="output.md5.hash">{{ output.md5.hash }}</span>
+          <div v-if="output.md5.hash">
+            <p>
+              <a
+                href="https://en.wikipedia.org/wiki/MD5"
+                target="_blank"
+                class="link-hover link link-info"
+              >
+                MD5 (Wikipedia)
+              </a>
+            </p>
+
+            <div class="divider"></div>
+
+            <ul class="list-disc pl-5">
+              <li>Hash:</li>
+              <ul class="list-disc pl-5">
+                <li>{{ output.md5.hash }}</li>
+              </ul>
+            </ul>
+          </div>
 
           <span v-else> Complete prompt to view table </span>
         </div>
@@ -117,7 +136,26 @@ const handleHash = async () => {
           aria-label="bcrypt"
         />
         <div role="tabpanel" class="tab-content p-10">
-          <span v-if="output.bcrypt.hash">{{ output.bcrypt.hash }}</span>
+          <div v-if="output.bcrypt.hash">
+            <p>
+              <a
+                href="https://en.wikipedia.org/wiki/Bcrypt"
+                target="_blank"
+                class="link-hover link link-info"
+              >
+                bcrypt (Wikipedia)
+              </a>
+            </p>
+
+            <div class="divider"></div>
+
+            <ul class="list-disc pl-5">
+              <li>Hash:</li>
+              <ul class="list-disc pl-5">
+                <li>{{ output.bcrypt.hash }}</li>
+              </ul>
+            </ul>
+          </div>
 
           <span v-else> Complete prompt to view table </span>
         </div>
@@ -130,7 +168,26 @@ const handleHash = async () => {
           aria-label="scrypt"
         />
         <div role="tabpanel" class="tab-content p-10">
-          <span v-if="output.scrypt.hash">{{ output.scrypt.hash }}</span>
+          <div v-if="output.scrypt.hash">
+            <p>
+              <a
+                href="https://en.wikipedia.org/wiki/Scrypt"
+                target="_blank"
+                class="link-hover link link-info"
+              >
+                scrypt (Wikipedia)
+              </a>
+            </p>
+
+            <div class="divider"></div>
+
+            <ul class="list-disc pl-5">
+              <li>Hash:</li>
+              <ul class="list-disc pl-5">
+                <li>{{ output.scrypt.hash }}</li>
+              </ul>
+            </ul>
+          </div>
 
           <span v-else> Complete prompt to view table </span>
         </div>
@@ -143,7 +200,26 @@ const handleHash = async () => {
           aria-label="Argon2id"
         />
         <div role="tabpanel" class="tab-content p-10">
-          <span v-if="output.argon2id.hash">{{ output.argon2id.hash }}</span>
+          <div v-if="output.argon2id.hash">
+            <p>
+              <a
+                href="https://en.wikipedia.org/wiki/Argon2"
+                target="_blank"
+                class="link-hover link link-info"
+              >
+                Argon2id (Wikipedia)
+              </a>
+            </p>
+
+            <div class="divider"></div>
+
+            <ul class="list-disc pl-5">
+              <li>Hash:</li>
+              <ul class="list-disc pl-5">
+                <li>{{ output.argon2id.hash }}</li>
+              </ul>
+            </ul>
+          </div>
 
           <span v-else> Complete prompt to view table </span>
         </div>
