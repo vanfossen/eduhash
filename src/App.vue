@@ -11,12 +11,23 @@ import Footer from "./components/Footer.vue";
 // interfaces
 interface AlgorithmOutput {
   name: string;
+  link: string;
   hash: string;
+}
+
+interface BcryptOutput {
+  name: string;
+  link: string;
+  hash: string;
+  hashId: string;
+  inputCost: string;
+  hashSalt: string;
+  hashValue: string;
 }
 
 interface Output {
   md5: AlgorithmOutput;
-  bcrypt: AlgorithmOutput;
+  bcrypt: BcryptOutput;
   scrypt: AlgorithmOutput;
   argon2id: AlgorithmOutput;
 }
@@ -24,10 +35,26 @@ interface Output {
 // variables
 const password = ref<string>("");
 const output = ref<Output>({
-  md5: { name: "MD5", hash: "" },
-  bcrypt: { name: "bcrypt", hash: "" },
-  scrypt: { name: "scrypt", hash: "" },
-  argon2id: { name: "Argon2id", hash: "" },
+  md5: { name: "MD5", link: "https://en.wikipedia.org/wiki/MD5", hash: "" },
+  bcrypt: {
+    name: "bcrypt",
+    link: "https://en.wikipedia.org/wiki/Bcrypt",
+    hash: "",
+    hashId: "",
+    inputCost: "",
+    hashSalt: "",
+    hashValue: "",
+  },
+  scrypt: {
+    name: "scrypt",
+    link: "https://en.wikipedia.org/wiki/Scrypt",
+    hash: "",
+  },
+  argon2id: {
+    name: "Argon2id",
+    link: "https://en.wikipedia.org/wiki/Argon2",
+    hash: "",
+  },
 });
 const error = ref<string>("");
 const loading = ref<boolean>(false);
@@ -52,7 +79,15 @@ const handleHash = async () => {
 
     // hash generation
     output.value.md5.hash = await md5Hash(password.value);
-    output.value.bcrypt.hash = await bcryptHash(password.value);
+
+    [
+      output.value.bcrypt.hash,
+      output.value.bcrypt.hashId,
+      output.value.bcrypt.inputCost,
+      output.value.bcrypt.hashSalt,
+      output.value.bcrypt.hashValue,
+    ] = await bcryptHash(password.value);
+
     output.value.scrypt.hash = await scryptHash(password.value);
     output.value.argon2id.hash = await argon2idHash(password.value);
 
@@ -107,11 +142,10 @@ const handleHash = async () => {
           <div v-if="output.md5.hash">
             <p>
               <a
-                href="https://en.wikipedia.org/wiki/MD5"
+                :href="output.md5.link"
                 target="_blank"
                 class="link-hover link link-info"
-              >
-                MD5 (Wikipedia)
+                >{{ output.md5.name }}
               </a>
             </p>
 
@@ -139,20 +173,37 @@ const handleHash = async () => {
           <div v-if="output.bcrypt.hash">
             <p>
               <a
-                href="https://en.wikipedia.org/wiki/Bcrypt"
+                :href="output.bcrypt.link"
                 target="_blank"
                 class="link-hover link link-info"
               >
-                bcrypt (Wikipedia)
+                {{ output.bcrypt.name }}
               </a>
             </p>
+
+            <p class="mt-4">{{ output.bcrypt.hash }}</p>
 
             <div class="divider"></div>
 
             <ul class="list-disc pl-5">
-              <li>Hash:</li>
+              <li>hashId:</li>
               <ul class="list-disc pl-5">
-                <li>{{ output.bcrypt.hash }}</li>
+                <li>{{ output.bcrypt.hashId }}</li>
+              </ul>
+
+              <li>inputCost:</li>
+              <ul class="list-disc pl-5">
+                <li>{{ output.bcrypt.inputCost }}</li>
+              </ul>
+
+              <li>hashSalt:</li>
+              <ul class="list-disc pl-5">
+                <li>{{ output.bcrypt.hashSalt }}</li>
+              </ul>
+
+              <li>hashValue:</li>
+              <ul class="list-disc pl-5">
+                <li>{{ output.bcrypt.hashValue }}</li>
               </ul>
             </ul>
           </div>
@@ -171,11 +222,11 @@ const handleHash = async () => {
           <div v-if="output.scrypt.hash">
             <p>
               <a
-                href="https://en.wikipedia.org/wiki/Scrypt"
+                :href="output.scrypt.link"
                 target="_blank"
                 class="link-hover link link-info"
               >
-                scrypt (Wikipedia)
+                {{ output.scrypt.name }}
               </a>
             </p>
 
@@ -203,11 +254,11 @@ const handleHash = async () => {
           <div v-if="output.argon2id.hash">
             <p>
               <a
-                href="https://en.wikipedia.org/wiki/Argon2"
+                :href="output.argon2id.link"
                 target="_blank"
                 class="link-hover link link-info"
               >
-                Argon2id (Wikipedia)
+                {{ output.argon2id.name }}
               </a>
             </p>
 
