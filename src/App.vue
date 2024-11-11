@@ -2,38 +2,14 @@
 <script setup lang="ts">
 // vue and other libraries
 import { ref } from "vue";
-import { md5Hash, bcryptHash, scryptHash, argon2idHash } from "./utils.ts";
+import { Output } from "./interfaces.ts";
 
 // components
+import Input from "./components/Input.vue";
 import Navbar from "./components/Navbar.vue";
 import Footer from "./components/Footer.vue";
 
-// interfaces
-interface AlgorithmOutput {
-  name: string;
-  link: string;
-  hash: string;
-}
-
-interface BcryptOutput {
-  name: string;
-  link: string;
-  hash: string;
-  hashId: string;
-  inputCost: string;
-  hashSalt: string;
-  hashValue: string;
-}
-
-interface Output {
-  md5: AlgorithmOutput;
-  bcrypt: BcryptOutput;
-  scrypt: AlgorithmOutput;
-  argon2id: AlgorithmOutput;
-}
-
 // variables
-const password = ref<string>("");
 const output = ref<Output>({
   md5: { name: "MD5", link: "https://en.wikipedia.org/wiki/MD5", hash: "" },
   bcrypt: {
@@ -56,45 +32,7 @@ const output = ref<Output>({
     hash: "",
   },
 });
-const error = ref<string>("");
 const loading = ref<boolean>(false);
-
-// function to check password is input by user
-const validateInput = (): string => {
-  if (!password.value) return "Password is required.";
-  return "";
-};
-
-// function to process user input
-const handleHash = async () => {
-  const errorMessage = validateInput();
-  if (errorMessage) {
-    error.value = errorMessage;
-    return;
-  }
-
-  if (password.value) {
-    loading.value = true;
-    error.value = "";
-
-    // hash generation
-    output.value.md5.hash = await md5Hash(password.value);
-
-    [
-      output.value.bcrypt.hash,
-      output.value.bcrypt.hashId,
-      output.value.bcrypt.inputCost,
-      output.value.bcrypt.hashSalt,
-      output.value.bcrypt.hashValue,
-    ] = await bcryptHash(password.value);
-
-    output.value.scrypt.hash = await scryptHash(password.value);
-    output.value.argon2id.hash = await argon2idHash(password.value);
-
-    password.value = "";
-    loading.value = false;
-  }
-};
 </script>
 
 <template>
@@ -102,26 +40,11 @@ const handleHash = async () => {
 
   <div class="flex grow flex-col items-center justify-center font-mono">
     <!-- Input.vue -->
-    <div
-      class="my-16 flex flex-col items-center rounded-2xl border border-black px-8 py-4 shadow-2xl"
-    >
-      <h1 class="mx-2 my-4 text-2xl">Please enter password below!</h1>
-
-      <!-- password -->
-      <input
-        v-model="password"
-        id="password"
-        type="text"
-        placeholder="Password"
-        class="input input-bordered m-2 w-full max-w-xs"
-      />
-
-      <!-- display error message -->
-      <div class="badge badge-error my-2" v-if="error">{{ error }}</div>
-
-      <!-- generate -->
-      <button class="btn btn-wide my-2" @click="handleHash">Generate</button>
-    </div>
+    <Input
+      :output="output"
+      :loading="loading"
+      @update:loading="loading = $event"
+    />
 
     <!-- Crypto.vue -->
     <div
