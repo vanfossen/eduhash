@@ -3,7 +3,13 @@
 // vue and other libraries
 import { ref } from "vue";
 import { Output } from "../interfaces.ts";
-import { md5Hash, bcryptHash, scryptHash, argon2idHash } from "../utils.ts";
+import {
+  md5Hash,
+  sha256Hash,
+  bcryptHash,
+  scryptHash,
+  argon2idHash,
+} from "../utils.ts";
 
 // emits
 const emit = defineEmits<{
@@ -43,6 +49,10 @@ const handleHash = async () => {
     emit("update:output", {
       ...props.output,
       md5: { ...props.output.md5, hash: await md5Hash(password.value) },
+      sha256: {
+        ...props.output.sha256,
+        hash: await sha256Hash(password.value),
+      },
       bcrypt: {
         ...props.output.bcrypt,
         hash: await bcryptHash(password.value),

@@ -2,7 +2,7 @@
  * src/utils.ts
  */
 // https://github.com/Daninet/hash-wasm
-import { md5, bcrypt, scrypt, argon2id } from "hash-wasm";
+import { md5, sha256, bcrypt, scrypt, argon2id } from "hash-wasm";
 
 /**
  * -----------------
@@ -54,6 +54,10 @@ import { md5, bcrypt, scrypt, argon2id } from "hash-wasm";
  */
 export async function md5Hash(password: string): Promise<string> {
   return await md5(password);
+}
+
+export async function sha256Hash(password: string): Promise<string> {
+  return await sha256(password);
 }
 
 export async function bcryptHash(password: string): Promise<string> {

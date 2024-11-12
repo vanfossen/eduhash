@@ -9,6 +9,7 @@ export interface AlgorithmOutput {
 
 export interface Output {
   md5: AlgorithmOutput;
+  sha256: AlgorithmOutput;
   bcrypt: AlgorithmOutput;
   scrypt: AlgorithmOutput;
   argon2id: AlgorithmOutput;

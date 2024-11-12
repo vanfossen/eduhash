@@ -13,6 +13,11 @@ import Navbar from "./components/Navbar.vue";
 // variables
 const output = ref<Output>({
   md5: { name: "MD5", link: "https://en.wikipedia.org/wiki/MD5", hash: "" },
+  sha256: {
+    name: "SHA-256",
+    link: "https://en.wikipedia.org/wiki/SHA-2",
+    hash: "",
+  },
   bcrypt: {
     name: "bcrypt",
     link: "https://en.wikipedia.org/wiki/Bcrypt",

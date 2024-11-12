@@ -54,6 +54,37 @@ const props = defineProps<{
         name="tabs_1"
         role="tab"
         class="tab"
+        aria-label="SHA-256"
+      />
+      <div role="tabpanel" class="tab-content p-10">
+        <div v-if="props.output.sha256.hash">
+          <p>
+            <a
+              :href="props.output.sha256.link"
+              target="_blank"
+              class="link-hover link link-info"
+              >{{ props.output.sha256.name }}
+            </a>
+          </p>
+
+          <div class="divider"></div>
+
+          <ul class="list-disc pl-5">
+            <li>Hash:</li>
+            <ul class="list-disc pl-5">
+              <li>{{ props.output.sha256.hash }}</li>
+            </ul>
+          </ul>
+        </div>
+
+        <span v-else> Complete prompt to view table </span>
+      </div>
+
+      <input
+        type="radio"
+        name="tabs_1"
+        role="tab"
+        class="tab"
         aria-label="bcrypt"
       />
       <div role="tabpanel" class="tab-content p-10">
