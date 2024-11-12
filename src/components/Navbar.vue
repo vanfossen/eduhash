@@ -1,4 +1,4 @@
-<!-- Navbar.vue -->
+<!-- src/components/Navbar.vue -->
 <script setup lang="ts">
 // components
 import ModalInfo from "./ModalInfo.vue";

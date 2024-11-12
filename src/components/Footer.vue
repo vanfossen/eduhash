@@ -1,4 +1,4 @@
-<!-- Footer.vue -->
+<!-- src/components/Footer.vue -->
 <script setup lang="ts"></script>
 
 <template>

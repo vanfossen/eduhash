@@ -1,9 +1,9 @@
-<!-- Crypto.vue -->
+<!-- src/components/Crypto.vue -->
 <script setup lang="ts">
 // vue and other libraries
 import { Output } from "../interfaces.ts";
 
-// TODO - props
+// props
 const props = defineProps<{
   output: Output;
   loading: boolean;

@@ -1,4 +1,4 @@
-<!-- ModalInfo.vue -->
+<!-- src/components/ModalInfo.vue -->
 <script setup lang="ts">
 // components
 import ThemeController from "./ThemeController.vue";
@@ -6,20 +6,22 @@ import ThemeController from "./ThemeController.vue";
 
 <template>
   <button class="btn btn-square btn-ghost" onclick="infoModal.showModal()">
-    <!-- heroicons | information-circle -->
+    <!-- lucide | info (https://lucide.dev/icons/info) -->
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      fill="none"
+      width="24"
+      height="24"
       viewBox="0 0 24 24"
-      stroke-width="1.5"
+      fill="none"
       stroke="currentColor"
-      class="size-6"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="lucide lucide-info"
     >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"
-      />
+      <circle cx="12" cy="12" r="10" />
+      <path d="M12 16v-4" />
+      <path d="M12 8h.01" />
     </svg>
   </button>
   <dialog id="infoModal" class="modal">
@@ -42,20 +44,24 @@ import ThemeController from "./ThemeController.vue";
         <input type="checkbox" />
         <div class="collapse-title font-bold">
           <span class="inline-flex">
-            <!-- heroicons | shield-exclamation -->
+            <!-- lucide | shield-alert (https://lucide.dev/icons/shield-alert) -->
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              fill="none"
+              width="24"
+              height="24"
               viewBox="0 0 24 24"
-              stroke-width="1.5"
+              fill="none"
               stroke="currentColor"
-              class="mr-4 size-6"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-shield-alert mr-4 size-6"
             >
               <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M12 9v3.75m0-10.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.75c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.57-.598-3.75h-.152c-3.196 0-6.1-1.25-8.25-3.286Zm0 13.036h.008v.008H12v-.008Z"
+                d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"
               />
+              <path d="M12 8v4" />
+              <path d="M12 16h.01" />
             </svg>
             Important Security Note:</span
           >
@@ -76,22 +82,23 @@ import ThemeController from "./ThemeController.vue";
         <input type="checkbox" />
         <div class="collapse-title font-bold">
           <span class="inline-flex">
-            <!-- heroicons | circle-stack -->
+            <!-- lucide | database (https://lucide.dev/icons/database) -->
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              fill="none"
+              width="24"
+              height="24"
               viewBox="0 0 24 24"
-              stroke-width="1.5"
+              fill="none"
               stroke="currentColor"
-              class="mr-4 size-6"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-database mr-4 size-6"
             >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125"
-              />
+              <ellipse cx="12" cy="5" rx="9" ry="3" />
+              <path d="M3 5V19A9 3 0 0 0 21 19V5" />
+              <path d="M3 12A9 3 0 0 0 21 12" />
             </svg>
-
             Local Storage:</span
           >
         </div>

@@ -1,4 +1,4 @@
-<!-- App.vue -->
+<!-- src/App.vue -->
 <script setup lang="ts">
 // vue and other libraries
 import { ref } from "vue";
@@ -6,9 +6,9 @@ import { Output } from "./interfaces.ts";
 
 // components
 import Crypto from "./components/Crypto.vue";
+import Footer from "./components/Footer.vue";
 import Input from "./components/Input.vue";
 import Navbar from "./components/Navbar.vue";
-import Footer from "./components/Footer.vue";
 
 // variables
 const output = ref<Output>({
@@ -36,20 +36,18 @@ const loading = ref<boolean>(false);
   <Navbar />
 
   <div class="flex grow flex-col items-center justify-center font-mono">
-    <!-- Input.vue -->
     <Input
       :output="output"
+      @update:output="output = $event"
       :loading="loading"
       @update:loading="loading = $event"
-      @update:output="output = $event"
     />
 
-    <!-- Crypto.vue -->
     <Crypto
       :output="output"
+      @update:output="output = $event"
       :loading="loading"
       @update:loading="loading = $event"
-      @update:output="output = $event"
     />
   </div>
 

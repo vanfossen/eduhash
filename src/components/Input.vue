@@ -1,23 +1,23 @@
-<!-- Input.vue -->
+<!-- src/components/Input.vue -->
 <script setup lang="ts">
 // vue and other libraries
 import { ref } from "vue";
 import { Output } from "../interfaces.ts";
 import { md5Hash, bcryptHash, scryptHash, argon2idHash } from "../utils.ts";
 
-// TODO - emits
+// emits
 const emit = defineEmits<{
   (e: "update:loading", value: boolean): void;
   (e: "update:output", value: Output): void;
 }>();
 
-// TODO - props
+// props
 const props = defineProps<{
   output: Output;
   loading: boolean;
 }>();
 
-// TODO - local state
+// variables
 const password = ref<string>("");
 const error = ref<string>("");
 

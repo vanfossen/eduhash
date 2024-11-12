@@ -1,3 +1,6 @@
+/**
+ * src/utils.ts
+ */
 // https://github.com/Daninet/hash-wasm
 import { md5, bcrypt, scrypt, argon2id } from "hash-wasm";
 

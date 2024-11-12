@@ -1,7 +1,9 @@
-<!-- ThemeController.vue -->
+<!-- src/components/ThemeController.vue -->
 <script setup lang="ts">
+// vue and other libraries
 import { ref, watch } from "vue";
 
+// variables
 const themeStorage = localStorage.getItem("theme");
 const isDark = ref<boolean>(false);
 

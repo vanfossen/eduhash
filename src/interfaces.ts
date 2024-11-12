@@ -1,11 +1,12 @@
-// TODO - interfaces
+/**
+ * src/interfaces.ts
+ */
 export interface AlgorithmOutput {
   name: string;
   link: string;
   hash: string;
 }
 
-// TODO - interfaces
 export interface Output {
   md5: AlgorithmOutput;
   bcrypt: AlgorithmOutput;
