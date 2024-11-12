@@ -1,7 +1,7 @@
 <!-- Input.vue -->
 <script setup lang="ts">
 // vue and other libraries
-import { ref, defineEmits } from "vue";
+import { ref } from "vue";
 import { Output } from "../interfaces.ts";
 import { md5Hash, bcryptHash, scryptHash, argon2idHash } from "../utils.ts";
 
