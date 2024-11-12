@@ -1,4 +1,4 @@
-<!-- App.vue -->
+<!-- Input.vue -->
 <script setup lang="ts">
 // vue and other libraries
 import { ref, defineEmits } from "vue";
