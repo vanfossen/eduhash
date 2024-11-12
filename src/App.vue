@@ -5,6 +5,7 @@ import { ref } from "vue";
 import { Output } from "./interfaces.ts";
 
 // components
+import Crypto from "./components/Crypto.vue";
 import Input from "./components/Input.vue";
 import Navbar from "./components/Navbar.vue";
 import Footer from "./components/Footer.vue";
@@ -44,141 +45,12 @@ const loading = ref<boolean>(false);
     />
 
     <!-- Crypto.vue -->
-    <div
-      class="w-4/5 max-w-fit overflow-x-auto rounded-2xl border border-black bg-base-200 px-4 py-2"
-    >
-      <span v-if="loading" class="loading loading-bars loading-lg"></span>
-
-      <div v-else role="tablist" class="tabs tabs-bordered">
-        <input
-          type="radio"
-          name="tabs_1"
-          role="tab"
-          class="tab"
-          aria-label="MD5"
-          checked
-        />
-        <div role="tabpanel" class="tab-content p-10">
-          <div v-if="output.md5.hash">
-            <p>
-              <a
-                :href="output.md5.link"
-                target="_blank"
-                class="link-hover link link-info"
-                >{{ output.md5.name }}
-              </a>
-            </p>
-
-            <div class="divider"></div>
-
-            <ul class="list-disc pl-5">
-              <li>Hash:</li>
-              <ul class="list-disc pl-5">
-                <li>{{ output.md5.hash }}</li>
-              </ul>
-            </ul>
-          </div>
-
-          <span v-else> Complete prompt to view table </span>
-        </div>
-
-        <input
-          type="radio"
-          name="tabs_1"
-          role="tab"
-          class="tab"
-          aria-label="bcrypt"
-        />
-        <div role="tabpanel" class="tab-content p-10">
-          <div v-if="output.bcrypt.hash">
-            <p>
-              <a
-                :href="output.bcrypt.link"
-                target="_blank"
-                class="link-hover link link-info"
-              >
-                {{ output.bcrypt.name }}
-              </a>
-            </p>
-
-            <div class="divider"></div>
-
-            <ul class="list-disc pl-5">
-              <li>Hash:</li>
-              <ul class="list-disc pl-5">
-                <li>{{ output.bcrypt.hash }}</li>
-              </ul>
-            </ul>
-          </div>
-
-          <span v-else> Complete prompt to view table </span>
-        </div>
-
-        <input
-          type="radio"
-          name="tabs_1"
-          role="tab"
-          class="tab"
-          aria-label="scrypt"
-        />
-        <div role="tabpanel" class="tab-content p-10">
-          <div v-if="output.scrypt.hash">
-            <p>
-              <a
-                :href="output.scrypt.link"
-                target="_blank"
-                class="link-hover link link-info"
-              >
-                {{ output.scrypt.name }}
-              </a>
-            </p>
-
-            <div class="divider"></div>
-
-            <ul class="list-disc pl-5">
-              <li>Hash:</li>
-              <ul class="list-disc pl-5">
-                <li>{{ output.scrypt.hash }}</li>
-              </ul>
-            </ul>
-          </div>
-
-          <span v-else> Complete prompt to view table </span>
-        </div>
-
-        <input
-          type="radio"
-          name="tabs_1"
-          role="tab"
-          class="tab"
-          aria-label="Argon2id"
-        />
-        <div role="tabpanel" class="tab-content p-10">
-          <div v-if="output.argon2id.hash">
-            <p>
-              <a
-                :href="output.argon2id.link"
-                target="_blank"
-                class="link-hover link link-info"
-              >
-                {{ output.argon2id.name }}
-              </a>
-            </p>
-
-            <div class="divider"></div>
-
-            <ul class="list-disc pl-5">
-              <li>Hash:</li>
-              <ul class="list-disc pl-5">
-                <li>{{ output.argon2id.hash }}</li>
-              </ul>
-            </ul>
-          </div>
-
-          <span v-else> Complete prompt to view table </span>
-        </div>
-      </div>
-    </div>
+    <Crypto
+      :output="output"
+      :loading="loading"
+      @update:loading="loading = $event"
+      @update:output="output = $event"
+    />
   </div>
 
   <Footer />
