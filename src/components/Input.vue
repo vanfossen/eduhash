@@ -5,8 +5,10 @@ import { ref, defineEmits } from "vue";
 import { Output } from "../interfaces.ts";
 import { md5Hash, bcryptHash, scryptHash, argon2idHash } from "../utils.ts";
 
+// TODO - emits
 const emit = defineEmits<{
   (e: "update:loading", value: boolean): void;
+  (e: "update:output", value: Output): void;
 }>();
 
 // TODO - props
@@ -18,7 +20,6 @@ const props = defineProps<{
 // TODO - local state
 const password = ref<string>("");
 const error = ref<string>("");
-const output = ref(props.output);
 
 // function to check password is input by user
 const validateInput = (): string => {
@@ -39,18 +40,22 @@ const handleHash = async () => {
     error.value = "";
 
     // hash generation
-    output.value.md5.hash = await md5Hash(password.value);
-
-    [
-      output.value.bcrypt.hash,
-      output.value.bcrypt.hashId,
-      output.value.bcrypt.inputCost,
-      output.value.bcrypt.hashSalt,
-      output.value.bcrypt.hashValue,
-    ] = await bcryptHash(password.value);
-
-    output.value.scrypt.hash = await scryptHash(password.value);
-    output.value.argon2id.hash = await argon2idHash(password.value);
+    emit("update:output", {
+      ...props.output,
+      md5: { ...props.output.md5, hash: await md5Hash(password.value) },
+      bcrypt: {
+        ...props.output.bcrypt,
+        hash: await bcryptHash(password.value),
+      },
+      scrypt: {
+        ...props.output.scrypt,
+        hash: await scryptHash(password.value),
+      },
+      argon2id: {
+        ...props.output.argon2id,
+        hash: await argon2idHash(password.value),
+      },
+    });
 
     password.value = "";
     emit("update:loading", false);

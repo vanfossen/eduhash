@@ -6,20 +6,9 @@ export interface AlgorithmOutput {
 }
 
 // TODO - interfaces
-export interface BcryptOutput {
-  name: string;
-  link: string;
-  hash: string;
-  hashId: string;
-  inputCost: string;
-  hashSalt: string;
-  hashValue: string;
-}
-
-// TODO - interfaces
 export interface Output {
   md5: AlgorithmOutput;
-  bcrypt: BcryptOutput;
+  bcrypt: AlgorithmOutput;
   scrypt: AlgorithmOutput;
   argon2id: AlgorithmOutput;
 }

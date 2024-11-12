@@ -53,37 +53,17 @@ export async function md5Hash(password: string): Promise<string> {
   return await md5(password);
 }
 
-export async function bcryptHash(
-  password: string,
-): Promise<[string, string, string, string, string]> {
+export async function bcryptHash(password: string): Promise<string> {
   // generate salt value
   const salt = new Uint8Array(16);
   window.crypto.getRandomValues(salt);
 
-  // generate hash
-  const hash = await bcrypt({
+  return await bcrypt({
     password: password,
     salt,
     costFactor: 11,
     outputType: "encoded",
   });
-
-  // split hash output string
-  const [hashId, inputCost, fullHash] = hash
-    .split("$")
-    .filter((part) => part !== "");
-
-  const [hashSalt, hashValue] = [
-    fullHash.substring(0, 22),
-    fullHash.substring(22),
-  ];
-
-  // return
-  //  > algorithm code
-  //  > cost
-  //  > salt
-  //  > hash
-  return [hash, hashId, inputCost, hashSalt, hashValue];
 }
 
 export async function scryptHash(password: string): Promise<string> {

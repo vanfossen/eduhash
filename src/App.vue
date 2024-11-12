@@ -16,10 +16,6 @@ const output = ref<Output>({
     name: "bcrypt",
     link: "https://en.wikipedia.org/wiki/Bcrypt",
     hash: "",
-    hashId: "",
-    inputCost: "",
-    hashSalt: "",
-    hashValue: "",
   },
   scrypt: {
     name: "scrypt",
@@ -44,6 +40,7 @@ const loading = ref<boolean>(false);
       :output="output"
       :loading="loading"
       @update:loading="loading = $event"
+      @update:output="output = $event"
     />
 
     <!-- Crypto.vue -->
@@ -104,29 +101,12 @@ const loading = ref<boolean>(false);
               </a>
             </p>
 
-            <p class="mt-4">{{ output.bcrypt.hash }}</p>
-
             <div class="divider"></div>
 
             <ul class="list-disc pl-5">
-              <li>hashId:</li>
+              <li>Hash:</li>
               <ul class="list-disc pl-5">
-                <li>{{ output.bcrypt.hashId }}</li>
-              </ul>
-
-              <li>inputCost:</li>
-              <ul class="list-disc pl-5">
-                <li>{{ output.bcrypt.inputCost }}</li>
-              </ul>
-
-              <li>hashSalt:</li>
-              <ul class="list-disc pl-5">
-                <li>{{ output.bcrypt.hashSalt }}</li>
-              </ul>
-
-              <li>hashValue:</li>
-              <ul class="list-disc pl-5">
-                <li>{{ output.bcrypt.hashValue }}</li>
+                <li>{{ output.bcrypt.hash }}</li>
               </ul>
             </ul>
           </div>
