@@ -1,5 +1,9 @@
 /**
- * src/interfaces.ts
+ * src/data/interfaces.ts
+ */
+
+/**
+ * TODO
  */
 export interface AlgorithmOutput {
   name: string;
@@ -7,6 +11,9 @@ export interface AlgorithmOutput {
   hash: string;
 }
 
+/**
+ * TODO
+ */
 export interface Output {
   md5: AlgorithmOutput;
   sha256: AlgorithmOutput;

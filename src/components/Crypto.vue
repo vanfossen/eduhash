@@ -1,7 +1,7 @@
 <!-- src/components/Crypto.vue -->
 <script setup lang="ts">
 // vue and other libraries
-import { Output } from "../interfaces.ts";
+import { Output } from "../data/interfaces.ts";
 import { hashAlgorithms } from "../data/hashAlgorithms.ts";
 
 // props

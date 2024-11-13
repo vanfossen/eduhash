@@ -2,7 +2,7 @@
 <script setup lang="ts">
 // vue and other libraries
 import { ref } from "vue";
-import { Output } from "./interfaces.ts";
+import { Output } from "./data/interfaces.ts";
 
 // components
 import Crypto from "./components/Crypto.vue";
