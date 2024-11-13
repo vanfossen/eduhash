@@ -1,3 +1,6 @@
+/**
+ * src/data/hashAlgorithms.ts
+ */
 export const hashAlgorithms = [
   {
     key: "md5",
