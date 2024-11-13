@@ -2,6 +2,7 @@
 <script setup lang="ts">
 // vue and other libraries
 import { Output } from "../interfaces.ts";
+import { hashAlgorithms } from "../data/hashAlgorithms.ts";
 
 // props
 const props = defineProps<{
@@ -17,164 +18,40 @@ const props = defineProps<{
     <span v-if="props.loading" class="loading loading-bars loading-lg"></span>
 
     <div v-else role="tablist" class="tabs tabs-bordered">
-      <input
-        type="radio"
-        name="tabs_1"
-        role="tab"
-        class="tab"
-        aria-label="MD5"
-        checked
-      />
-      <div role="tabpanel" class="tab-content p-10">
-        <div v-if="props.output.md5.hash">
-          <p>
-            <a
-              :href="props.output.md5.link"
-              target="_blank"
-              class="link-hover link link-info"
-              >{{ props.output.md5.name }}
-            </a>
-          </p>
+      <template v-for="(hashType, index) in hashAlgorithms" :key="hashType.key">
+        <input
+          type="radio"
+          name="tabs_1"
+          role="tab"
+          class="tab"
+          :aria-label="hashType.label"
+          :checked="index === 0"
+        />
+        <div role="tabpanel" class="tab-content p-10">
+          <div v-if="hashType.hash">
+            <p>
+              <a
+                :href="hashType.link"
+                target="_blank"
+                class="link-hover link link-info"
+              >
+                {{ hashType.label }}
+              </a>
+            </p>
 
-          <div class="divider"></div>
+            <div class="divider"></div>
 
-          <ul class="list-disc pl-5">
-            <li>Hash:</li>
             <ul class="list-disc pl-5">
-              <li>{{ props.output.md5.hash }}</li>
+              <li>Hash:</li>
+              <ul class="list-disc pl-5">
+                <li>{{ hashType.hash }}</li>
+              </ul>
             </ul>
-          </ul>
+          </div>
+
+          <span v-else> Complete prompt to view table </span>
         </div>
-
-        <span v-else> Complete prompt to view table </span>
-      </div>
-
-      <input
-        type="radio"
-        name="tabs_1"
-        role="tab"
-        class="tab"
-        aria-label="SHA-256"
-      />
-      <div role="tabpanel" class="tab-content p-10">
-        <div v-if="props.output.sha256.hash">
-          <p>
-            <a
-              :href="props.output.sha256.link"
-              target="_blank"
-              class="link-hover link link-info"
-              >{{ props.output.sha256.name }}
-            </a>
-          </p>
-
-          <div class="divider"></div>
-
-          <ul class="list-disc pl-5">
-            <li>Hash:</li>
-            <ul class="list-disc pl-5">
-              <li>{{ props.output.sha256.hash }}</li>
-            </ul>
-          </ul>
-        </div>
-
-        <span v-else> Complete prompt to view table </span>
-      </div>
-
-      <input
-        type="radio"
-        name="tabs_1"
-        role="tab"
-        class="tab"
-        aria-label="bcrypt"
-      />
-      <div role="tabpanel" class="tab-content p-10">
-        <div v-if="props.output.bcrypt.hash">
-          <p>
-            <a
-              :href="props.output.bcrypt.link"
-              target="_blank"
-              class="link-hover link link-info"
-            >
-              {{ props.output.bcrypt.name }}
-            </a>
-          </p>
-
-          <div class="divider"></div>
-
-          <ul class="list-disc pl-5">
-            <li>Hash:</li>
-            <ul class="list-disc pl-5">
-              <li>{{ props.output.bcrypt.hash }}</li>
-            </ul>
-          </ul>
-        </div>
-
-        <span v-else> Complete prompt to view table </span>
-      </div>
-
-      <input
-        type="radio"
-        name="tabs_1"
-        role="tab"
-        class="tab"
-        aria-label="scrypt"
-      />
-      <div role="tabpanel" class="tab-content p-10">
-        <div v-if="props.output.scrypt.hash">
-          <p>
-            <a
-              :href="props.output.scrypt.link"
-              target="_blank"
-              class="link-hover link link-info"
-            >
-              {{ props.output.scrypt.name }}
-            </a>
-          </p>
-
-          <div class="divider"></div>
-
-          <ul class="list-disc pl-5">
-            <li>Hash:</li>
-            <ul class="list-disc pl-5">
-              <li>{{ props.output.scrypt.hash }}</li>
-            </ul>
-          </ul>
-        </div>
-
-        <span v-else> Complete prompt to view table </span>
-      </div>
-
-      <input
-        type="radio"
-        name="tabs_1"
-        role="tab"
-        class="tab"
-        aria-label="Argon2id"
-      />
-      <div role="tabpanel" class="tab-content p-10">
-        <div v-if="props.output.argon2id.hash">
-          <p>
-            <a
-              :href="props.output.argon2id.link"
-              target="_blank"
-              class="link-hover link link-info"
-            >
-              {{ props.output.argon2id.name }}
-            </a>
-          </p>
-
-          <div class="divider"></div>
-
-          <ul class="list-disc pl-5">
-            <li>Hash:</li>
-            <ul class="list-disc pl-5">
-              <li>{{ props.output.argon2id.hash }}</li>
-            </ul>
-          </ul>
-        </div>
-
-        <span v-else> Complete prompt to view table </span>
-      </div>
+      </template>
     </div>
   </div>
 </template>

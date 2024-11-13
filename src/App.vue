@@ -10,27 +10,27 @@ import Footer from "./components/Footer.vue";
 import Input from "./components/Input.vue";
 import Navbar from "./components/Navbar.vue";
 
-// variables
+// TODO - variables
 const output = ref<Output>({
-  md5: { name: "MD5", link: "https://en.wikipedia.org/wiki/MD5", hash: "" },
+  md5: { name: "MD5", link: "", hash: "" },
   sha256: {
     name: "SHA-256",
-    link: "https://en.wikipedia.org/wiki/SHA-2",
+    link: "",
     hash: "",
   },
   bcrypt: {
     name: "bcrypt",
-    link: "https://en.wikipedia.org/wiki/Bcrypt",
+    link: "",
     hash: "",
   },
   scrypt: {
     name: "scrypt",
-    link: "https://en.wikipedia.org/wiki/Scrypt",
+    link: "",
     hash: "",
   },
   argon2id: {
     name: "Argon2id",
-    link: "https://en.wikipedia.org/wiki/Argon2",
+    link: "",
     hash: "",
   },
 });

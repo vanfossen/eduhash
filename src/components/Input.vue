@@ -9,7 +9,7 @@ import {
   bcryptHash,
   scryptHash,
   argon2idHash,
-} from "../utils.ts";
+} from "../utils/hashFunctions.ts";
 
 // emits
 const emit = defineEmits<{
