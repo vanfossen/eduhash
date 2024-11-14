@@ -5,19 +5,9 @@
 /**
  * TODO
  */
-export interface AlgorithmOutput {
-  name: string;
+export interface HashAlgorithm {
+  key: string;
+  label: string;
   link: string;
   hash: string;
-}
-
-/**
- * TODO
- */
-export interface Output {
-  md5: AlgorithmOutput;
-  sha256: AlgorithmOutput;
-  bcrypt: AlgorithmOutput;
-  scrypt: AlgorithmOutput;
-  argon2id: AlgorithmOutput;
 }

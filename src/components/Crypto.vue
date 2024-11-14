@@ -1,13 +1,13 @@
 <!-- src/components/Crypto.vue -->
 <script setup lang="ts">
 // vue and other libraries
-import { Output } from "../data/interfaces.ts";
+import { HashAlgorithm } from "../data/interfaces.ts";
 import { hashAlgorithms } from "../data/hashAlgorithms.ts";
 
 // props
 const props = defineProps<{
-  output: Output;
   loading: boolean;
+  hashAlgorithms: Array<HashAlgorithm>;
 }>();
 </script>
 
@@ -18,24 +18,24 @@ const props = defineProps<{
     <span v-if="props.loading" class="loading loading-bars loading-lg"></span>
 
     <div v-else role="tablist" class="tabs tabs-bordered">
-      <template v-for="(hashType, index) in hashAlgorithms" :key="hashType.key">
+      <template v-for="(algo, index) in hashAlgorithms" :key="algo.key">
         <input
           type="radio"
           name="tabs_1"
           role="tab"
           class="tab"
-          :aria-label="hashType.label"
+          :aria-label="algo.label"
           :checked="index === 0"
         />
         <div role="tabpanel" class="tab-content p-10">
-          <div v-if="hashType.hash">
+          <div v-if="algo.hash">
             <p>
               <a
-                :href="hashType.link"
+                :href="algo.link"
                 target="_blank"
                 class="link-hover link link-info"
               >
-                {{ hashType.label }}
+                {{ algo.label }}
               </a>
             </p>
 
@@ -44,7 +44,7 @@ const props = defineProps<{
             <ul class="list-disc pl-5">
               <li>Hash:</li>
               <ul class="list-disc pl-5">
-                <li>{{ hashType.hash }}</li>
+                <li>{{ algo.hash }}</li>
               </ul>
             </ul>
           </div>

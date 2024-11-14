@@ -1,8 +1,8 @@
 <!-- src/components/Input.vue -->
 <script setup lang="ts">
 // vue and other libraries
-import { ref } from "vue";
-import { Output } from "../data/interfaces.ts";
+import { computed, ref } from "vue";
+import { HashAlgorithm } from "../data/interfaces.ts";
 import {
   md5Hash,
   sha256Hash,
@@ -14,18 +14,22 @@ import {
 // emits
 const emit = defineEmits<{
   (e: "update:loading", value: boolean): void;
-  (e: "update:output", value: Output): void;
 }>();
 
 // props
 const props = defineProps<{
-  output: Output;
   loading: boolean;
+  hashAlgorithms: Array<HashAlgorithm>;
 }>();
 
 // variables
 const password = ref<string>("");
 const error = ref<string>("");
+
+// TODO
+const hashExists = computed(() => {
+  return localStorage.getItem("hash");
+});
 
 // function to check password is input by user
 const validateInput = (): string => {
@@ -46,30 +50,43 @@ const handleHash = async () => {
     error.value = "";
 
     // hash generation
-    emit("update:output", {
-      ...props.output,
-      md5: { ...props.output.md5, hash: await md5Hash(password.value) },
-      sha256: {
-        ...props.output.sha256,
-        hash: await sha256Hash(password.value),
-      },
-      bcrypt: {
-        ...props.output.bcrypt,
-        hash: await bcryptHash(password.value),
-      },
-      scrypt: {
-        ...props.output.scrypt,
-        hash: await scryptHash(password.value),
-      },
-      argon2id: {
-        ...props.output.argon2id,
-        hash: await argon2idHash(password.value),
-      },
+    const md5 = await md5Hash(password.value);
+    const sha256 = await sha256Hash(password.value);
+    const bcrypt = await bcryptHash(password.value);
+    const scrypt = await scryptHash(password.value);
+    const argon2id = await argon2idHash(password.value);
+
+    // Update the hashAlgorithms array with the new hashes
+    props.hashAlgorithms.forEach((algorithm) => {
+      switch (algorithm.key) {
+        case "md5":
+          algorithm.hash = md5;
+          break;
+        case "sha256":
+          algorithm.hash = sha256;
+          break;
+        case "bcrypt":
+          algorithm.hash = bcrypt;
+          break;
+        case "scrypt":
+          algorithm.hash = scrypt;
+          break;
+        case "argon2id":
+          algorithm.hash = argon2id;
+          break;
+      }
     });
 
     password.value = "";
     emit("update:loading", false);
+
+    localStorage.setItem("hash", "true");
   }
+};
+
+// TODO
+const clearInput = () => {
+  localStorage.removeItem("hash");
 };
 </script>
 
@@ -93,6 +110,11 @@ const handleHash = async () => {
 
     <!-- generate -->
     <button class="btn btn-wide my-2" @click="handleHash">Generate</button>
+
+    <!-- reset -->
+    <button v-if="hashExists" class="btn btn-wide my-2" @click="clearInput">
+      Clear
+    </button>
   </div>
 </template>
 

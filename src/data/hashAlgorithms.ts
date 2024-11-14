@@ -1,7 +1,9 @@
+import { HashAlgorithm } from "./interfaces.ts";
+
 /**
  * src/data/hashAlgorithms.ts
  */
-export const hashAlgorithms = [
+export const hashAlgorithms: Array<HashAlgorithm> = [
   {
     key: "md5",
     label: "MD5",
