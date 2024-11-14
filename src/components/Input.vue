@@ -1,7 +1,7 @@
 <!-- src/components/Input.vue -->
 <script setup lang="ts">
 // vue and other libraries
-import { computed, ref } from "vue";
+import { ref } from "vue";
 import { HashAlgorithm } from "../data/interfaces.ts";
 import {
   md5Hash,
