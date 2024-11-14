@@ -26,11 +26,6 @@ const props = defineProps<{
 const password = ref<string>("");
 const error = ref<string>("");
 
-// TODO
-const hashExists = computed(() => {
-  return localStorage.getItem("hash");
-});
-
 // function to check password is input by user
 const validateInput = (): string => {
   if (!password.value) return "Password is required.";
@@ -79,14 +74,7 @@ const handleHash = async () => {
 
     password.value = "";
     emit("update:loading", false);
-
-    localStorage.setItem("hash", "true");
   }
-};
-
-// TODO
-const clearInput = () => {
-  localStorage.removeItem("hash");
 };
 </script>
 
@@ -112,9 +100,7 @@ const clearInput = () => {
     <button class="btn btn-wide my-2" @click="handleHash">Generate</button>
 
     <!-- reset -->
-    <button v-if="hashExists" class="btn btn-wide my-2" @click="clearInput">
-      Clear
-    </button>
+    <button class="btn btn-wide my-2">Clear</button>
   </div>
 </template>
 
