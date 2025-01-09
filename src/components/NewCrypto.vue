@@ -3,6 +3,7 @@
 // props
 const props = defineProps<{
   loading: boolean;
+  hashValue: number;
 }>();
 </script>
 
@@ -12,7 +13,7 @@ const props = defineProps<{
   >
     <span v-if="props.loading" class="loading loading-bars loading-lg"></span>
 
-    <span v-else>HELLO, WORLD!</span>
+    <span v-else>{{ props.hashValue }}</span>
   </div>
 </template>
 

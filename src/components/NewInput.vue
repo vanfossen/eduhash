@@ -7,12 +7,15 @@ import { hashAlgorithms } from "../data/hashAlgorithms.ts";
 // emits
 const emit = defineEmits<{
   (e: "update:loading", value: boolean): void;
+  (e: "update:hashValue", value: number): void;
 }>();
 
 // variables
 const password = ref<string>("");
 const hash = ref<string>("");
 const error = ref<string>("");
+
+let numCount: number = 0;
 
 // function to check validity of user input
 const validateInput = (): undefined => {
@@ -43,6 +46,9 @@ const handleGenerate = () => {
 
   (async () => {
     await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    numCount++;
+    emit("update:hashValue", numCount);
 
     emit("update:loading", false);
   })();
