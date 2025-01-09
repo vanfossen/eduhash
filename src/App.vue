@@ -2,13 +2,12 @@
 <script setup lang="ts">
 // vue and other libraries
 import { ref } from "vue";
-import { hashAlgorithms } from "./data/hashAlgorithms.ts";
 
 // components
-import Crypto from "./components/Crypto.vue";
 import Footer from "./components/Footer.vue";
-import Input from "./components/Input.vue";
 import Navbar from "./components/Navbar.vue";
+import NewInput from "./components/NewInput.vue";
+import NewCrypto from "./components/NewCrypto.vue";
 
 // TODO - variables
 const loading = ref<boolean>(false);
@@ -18,17 +17,9 @@ const loading = ref<boolean>(false);
   <Navbar />
 
   <div class="flex grow flex-col items-center justify-center font-mono">
-    <Input
-      :loading="loading"
-      @update:loading="loading = $event"
-      :hashAlgorithms="hashAlgorithms"
-    />
+    <NewInput :loading="loading" @update:loading="loading = $event" />
 
-    <Crypto
-      :loading="loading"
-      @update:loading="loading = $event"
-      :hashAlgorithms="hashAlgorithms"
-    />
+    <NewCrypto :loading="loading" @update:loading="loading = $event" />
   </div>
 
   <Footer />
