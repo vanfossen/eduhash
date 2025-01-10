@@ -6,8 +6,8 @@ import { ref } from "vue";
 // components
 import Footer from "./components/Footer.vue";
 import Navbar from "./components/Navbar.vue";
-import NewInput from "./components/NewInput.vue";
-import NewCrypto from "./components/NewCrypto.vue";
+import Input from "./components/Input.vue";
+import Crypto from "./components/Crypto.vue";
 
 // TODO - variables
 const loading = ref<boolean>(false);
@@ -19,17 +19,13 @@ const hashLabel = ref<string>("");
   <Navbar />
 
   <div class="flex grow flex-col items-center justify-center font-mono">
-    <NewInput
+    <Input
       @update:loading="loading = $event"
       @update:hashValue="hashValue = $event"
       @update:hashLabel="hashLabel = $event"
     />
 
-    <NewCrypto
-      :loading="loading"
-      :hashValue="hashValue"
-      :hashLabel="hashLabel"
-    />
+    <Crypto :loading="loading" :hashValue="hashValue" :hashLabel="hashLabel" />
   </div>
 
   <Footer />

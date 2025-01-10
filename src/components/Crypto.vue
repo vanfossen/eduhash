@@ -1,57 +1,26 @@
 <!-- src/components/Crypto.vue -->
 <script setup lang="ts">
-// vue and other libraries
-import { HashAlgorithm } from "../data/interfaces.ts";
-import { hashAlgorithms } from "../data/hashAlgorithms.ts";
-
 // props
 const props = defineProps<{
   loading: boolean;
-  hashAlgorithms: Array<HashAlgorithm>;
+  hashValue: string;
+  hashLabel: string;
 }>();
 </script>
 
 <template>
   <div
-    class="w-4/5 max-w-fit overflow-x-auto rounded-2xl border border-black bg-base-200 px-4 py-2"
+    class="w-4/5 max-w-fit overflow-x-auto rounded-2xl border border-black bg-base-200 px-4 py-2 text-center"
   >
     <span v-if="props.loading" class="loading loading-bars loading-lg"></span>
 
-    <div v-else role="tablist" class="tabs tabs-bordered">
-      <template v-for="(algo, index) in hashAlgorithms" :key="algo.key">
-        <input
-          type="radio"
-          name="tabs_1"
-          role="tab"
-          class="tab"
-          :aria-label="algo.label"
-          :checked="index === 0"
-        />
-        <div role="tabpanel" class="tab-content p-10">
-          <div v-if="algo.hash">
-            <p>
-              <a
-                :href="algo.link"
-                target="_blank"
-                class="link-hover link link-info"
-              >
-                {{ algo.label }}
-              </a>
-            </p>
+    <div v-else>
+      <div v-if="props.hashValue">
+        <h1 class="text-xl">{{ props.hashLabel }}</h1>
+        <span>{{ props.hashValue }}</span>
+      </div>
 
-            <div class="divider"></div>
-
-            <ul class="list-disc pl-5">
-              <li>Hash:</li>
-              <ul class="list-disc pl-5">
-                <li>{{ algo.hash }}</li>
-              </ul>
-            </ul>
-          </div>
-
-          <span v-else> Complete prompt to view table </span>
-        </div>
-      </template>
+      <div v-else><span>Use generator to view hash value</span></div>
     </div>
   </div>
 </template>
