@@ -2,14 +2,7 @@
 <script setup lang="ts">
 // vue and other libraries
 import { ref, computed } from "vue";
-import { hashAlgorithms } from "../data/hashAlgorithms.ts";
-import {
-  md5Hash,
-  sha256Hash,
-  bcryptHash,
-  scryptHash,
-  argon2idHash,
-} from "../utils/hashFunctions.ts";
+import { algorithms } from "../data/algorithms.ts";
 
 // emits
 const emit = defineEmits<{
@@ -45,26 +38,17 @@ const clearInput = (): undefined => {
   error.value = "";
 };
 
-// mapping of algorithms to their respective hashing functions
-const hashFunctions: Record<string, (input: string) => Promise<string>> = {
-  md5: md5Hash,
-  sha256: sha256Hash,
-  bcrypt: bcryptHash,
-  scrypt: scryptHash,
-  argon2id: argon2idHash,
-};
-
 const handleGenerate = async () => {
   validateInput();
   emit("update:loading", true);
 
-  const hashFunction = hashFunctions[algorithm.value];
+  const selectedAlgorithm = algorithms.find((a) => a.key === algorithm.value);
 
+  emit("update:hashLabel", selectedAlgorithm?.label || "");
   emit(
-    "update:hashLabel",
-    hashAlgorithms.find((a) => a.key === algorithm.value)?.label || "",
+    "update:hashValue",
+    selectedAlgorithm ? await selectedAlgorithm.function(password.value) : "",
   );
-  emit("update:hashValue", await hashFunction(password.value));
 
   emit("update:loading", false);
 };
@@ -104,7 +88,7 @@ const isClearDisabled = computed(() => {
     >
       <option disabled selected value="">Select algorithm...</option>
       <option
-        v-for="algorithm in hashAlgorithms"
+        v-for="algorithm in algorithms"
         :key="algorithm.key"
         :value="algorithm.key"
       >

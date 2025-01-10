@@ -9,5 +9,5 @@ export interface HashAlgorithm {
   key: string;
   label: string;
   link: string;
-  hash: string;
+  function: (password: string) => Promise<string>;
 }
