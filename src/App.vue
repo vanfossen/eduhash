@@ -11,7 +11,8 @@ import NewCrypto from "./components/NewCrypto.vue";
 
 // TODO - variables
 const loading = ref<boolean>(false);
-const hashValue = ref<number>(0);
+const hashValue = ref<string>("");
+const hashLabel = ref<string>("");
 </script>
 
 <template>
@@ -21,12 +22,13 @@ const hashValue = ref<number>(0);
     <NewInput
       @update:loading="loading = $event"
       @update:hashValue="hashValue = $event"
+      @update:hashLabel="hashLabel = $event"
     />
 
     <NewCrypto
       :loading="loading"
-      @update:loading="loading = $event"
       :hashValue="hashValue"
+      :hashLabel="hashLabel"
     />
   </div>
 
