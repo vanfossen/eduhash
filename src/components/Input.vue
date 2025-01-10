@@ -76,13 +76,14 @@ const isClearDisabled = computed(() => {
       id="password"
       type="text"
       placeholder="Password"
-      class="input input-bordered w-full max-w-xs"
+      autofocus
+      class="input input-bordered my-2 w-full max-w-xs"
       aria-label="Password"
     />
 
     <!-- algorithm -->
     <select
-      class="select select-bordered w-full max-w-xs"
+      class="select select-bordered my-2 w-full max-w-xs"
       v-model="algorithm"
       aria-label="Algorithm"
     >
@@ -103,7 +104,7 @@ const isClearDisabled = computed(() => {
 
     <!-- generate -->
     <button
-      class="btn btn-wide"
+      class="btn btn-wide my-2 mt-8"
       @click="handleGenerate"
       :disabled="isGenerateDisabled"
     >
@@ -112,7 +113,7 @@ const isClearDisabled = computed(() => {
 
     <!-- clear -->
     <button
-      class="btn btn-wide"
+      class="btn btn-wide my-2"
       @click="clearInput"
       :disabled="isClearDisabled"
     >
