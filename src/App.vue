@@ -9,10 +9,13 @@ import Navbar from "./components/Navbar.vue";
 import Input from "./components/Input.vue";
 import Crypto from "./components/Crypto.vue";
 
+// interfaces
+import { HashData } from "./data/interfaces.ts";
+
 // TODO - variables
 const loading = ref<boolean>(false);
-const hashValue = ref<string>("");
-const hashLabel = ref<string>("");
+const hashData = ref<HashData>({ label: "", salt: false, iteration: false });
+const digest = ref<string>("");
 </script>
 
 <template>
@@ -21,11 +24,11 @@ const hashLabel = ref<string>("");
   <div class="flex grow flex-col items-center justify-center font-mono">
     <Input
       @update:loading="loading = $event"
-      @update:hashValue="hashValue = $event"
-      @update:hashLabel="hashLabel = $event"
+      @update:hashData="hashData = $event"
+      @update:digest="digest = $event"
     />
 
-    <Crypto :loading="loading" :hashValue="hashValue" :hashLabel="hashLabel" />
+    <Crypto :loading="loading" :hashData="hashData" :digest="digest" />
   </div>
 
   <Footer />

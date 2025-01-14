@@ -48,6 +48,12 @@ The following assumes you have [Node.js](https://github.com/nodejs/node) install
 
     - [database](https://lucide.dev/icons/database)
 
+  - hash data
+
+    - [square-check](https://lucide.dev/icons/square-check)
+
+    - [square-x](https://lucide.dev/icons/square-x)
+
 ## License
 
 [MIT](LICENSE)

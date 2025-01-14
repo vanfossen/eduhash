@@ -6,27 +6,33 @@
 import { HashAlgorithm } from "./interfaces.ts";
 import { md5, sha256, bcrypt, scrypt, argon2id } from "hash-wasm";
 
-export const algorithms: Array<HashAlgorithm> = [
-  {
-    key: "md5",
-    label: "MD5",
-    link: "https://en.wikipedia.org/wiki/MD5",
+export const algorithms: Record<string, HashAlgorithm> = {
+  md5: {
+    data: {
+      label: "MD5",
+      salt: false,
+      iteration: false,
+    },
     function: async (password: string): Promise<string> => {
       return await md5(password);
     },
   },
-  {
-    key: "sha256",
-    label: "SHA-256",
-    link: "https://en.wikipedia.org/wiki/SHA-2",
+  sha256: {
+    data: {
+      label: "SHA-256",
+      salt: false,
+      iteration: false,
+    },
     function: async (password: string): Promise<string> => {
       return await sha256(password);
     },
   },
-  {
-    key: "bcrypt",
-    label: "bcrypt",
-    link: "https://en.wikipedia.org/wiki/Bcrypt",
+  bcrypt: {
+    data: {
+      label: "bcrypt",
+      salt: true,
+      iteration: true,
+    },
     function: async (password: string): Promise<string> => {
       // generate salt value
       const salt = new Uint8Array(16);
@@ -40,10 +46,12 @@ export const algorithms: Array<HashAlgorithm> = [
       });
     },
   },
-  {
-    key: "scrypt",
-    label: "scrypt",
-    link: "https://en.wikipedia.org/wiki/Scrypt",
+  scrypt: {
+    data: {
+      label: "scrypt",
+      salt: true,
+      iteration: true,
+    },
     function: async (password: string): Promise<string> => {
       const salt = new Uint8Array(16);
       window.crypto.getRandomValues(salt);
@@ -59,10 +67,12 @@ export const algorithms: Array<HashAlgorithm> = [
       });
     },
   },
-  {
-    key: "argon2id",
-    label: "Argon2id",
-    link: "https://en.wikipedia.org/wiki/Argon2",
+  argon2id: {
+    data: {
+      label: "Argon2id",
+      salt: true,
+      iteration: true,
+    },
     function: async (password: string): Promise<string> => {
       const salt = new Uint8Array(16);
       window.crypto.getRandomValues(salt);
@@ -78,4 +88,4 @@ export const algorithms: Array<HashAlgorithm> = [
       });
     },
   },
-];
+};

@@ -4,11 +4,14 @@
 import { ref, computed } from "vue";
 import { algorithms } from "../data/algorithms.ts";
 
+// interfaces
+import { HashData } from "../data/interfaces.ts";
+
 // emits
 const emit = defineEmits<{
   (e: "update:loading", value: boolean): void;
-  (e: "update:hashValue", value: string): void;
-  (e: "update:hashLabel", value: string): void;
+  (e: "update:hashData", value: HashData): void;
+  (e: "update:digest", value: string): void;
 }>();
 
 // variables
@@ -42,13 +45,10 @@ const handleGenerate = async () => {
   validateInput();
   emit("update:loading", true);
 
-  const selectedAlgorithm = algorithms.find((a) => a.key === algorithm.value);
+  const selectedAlgorithm = algorithms[algorithm.value];
 
-  emit("update:hashLabel", selectedAlgorithm?.label || "");
-  emit(
-    "update:hashValue",
-    selectedAlgorithm ? await selectedAlgorithm.function(password.value) : "",
-  );
+  emit("update:hashData", selectedAlgorithm.data);
+  emit("update:digest", await selectedAlgorithm.function(password.value));
 
   emit("update:loading", false);
 };
@@ -88,12 +88,8 @@ const isClearDisabled = computed(() => {
       aria-label="Algorithm"
     >
       <option disabled selected value="">Select algorithm...</option>
-      <option
-        v-for="algorithm in algorithms"
-        :key="algorithm.key"
-        :value="algorithm.key"
-      >
-        {{ algorithm.label }}
+      <option v-for="(algorithm, key) in algorithms" :key="key" :value="key">
+        {{ algorithm.data.label }}
       </option>
     </select>
 

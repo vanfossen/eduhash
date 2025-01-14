@@ -5,9 +5,16 @@
 /**
  * TODO
  */
-export interface HashAlgorithm {
-  key: string;
+export interface HashData {
   label: string;
-  link: string;
+  salt: boolean;
+  iteration: boolean;
+}
+
+/**
+ * TODO
+ */
+export interface HashAlgorithm {
+  data: HashData;
   function: (password: string) => Promise<string>;
 }
