@@ -5,7 +5,7 @@ import { SquareCheck } from "lucide-vue-next";
 import { SquareX } from "lucide-vue-next";
 
 // interfaces
-import { HashData } from "../data/interfaces";
+import { HashData } from "../data/interfaces.ts";
 
 // props
 const props = defineProps<{
