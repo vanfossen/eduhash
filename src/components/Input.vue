@@ -66,7 +66,7 @@ const isClearDisabled = computed(() => {
 
 <template>
   <div
-    class="my-16 flex flex-col items-center rounded-2xl border border-black px-8 py-4 shadow-2xl"
+    class="m-4 flex flex-col items-center rounded-2xl border border-black px-8 py-4 shadow-2xl"
   >
     <h1 class="mx-2 my-4 text-3xl">Cryptographic Hash Generator</h1>
 
@@ -75,7 +75,7 @@ const isClearDisabled = computed(() => {
       v-model="password"
       id="password"
       type="text"
-      placeholder="Password"
+      placeholder="Enter password..."
       autofocus
       class="input input-bordered my-2 w-full max-w-xs"
       aria-label="Password"

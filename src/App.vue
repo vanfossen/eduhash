@@ -21,7 +21,7 @@ const digest = ref<string>("");
 <template>
   <Navbar />
 
-  <div class="flex grow flex-col items-center justify-center font-mono">
+  <div class="flex grow flex-col items-center justify-center">
     <Input
       @update:loading="loading = $event"
       @update:hashData="hashData = $event"

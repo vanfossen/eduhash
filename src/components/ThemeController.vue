@@ -23,7 +23,7 @@ const toggleTheme = () => {
 </script>
 
 <template>
-  <div class="flex flex-col items-center justify-center font-mono">
+  <div class="flex flex-col items-center justify-center">
     <p class="mb-2 font-bold">Theme</p>
 
     <div class="join join-horizontal">

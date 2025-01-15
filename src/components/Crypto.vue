@@ -17,7 +17,7 @@ const props = defineProps<{
 
 <template>
   <div
-    class="w-4/5 max-w-fit overflow-x-auto rounded-2xl border border-black bg-base-200 px-4 py-4 text-center"
+    class="m-4 w-4/5 max-w-fit overflow-x-auto rounded-2xl border border-black bg-base-200 p-4 text-center"
   >
     <span v-if="props.loading" class="loading loading-bars loading-lg"></span>
 
@@ -34,13 +34,17 @@ const props = defineProps<{
           <div>Iteration</div>
 
           <div>
-            <div v-if="props.hashData.salt"><SquareCheck /></div>
-            <div v-else><SquareX /></div>
+            <div v-if="props.hashData.salt">
+              <SquareCheck class="stroke-success" />
+            </div>
+            <div v-else><SquareX class="stroke-error" /></div>
           </div>
 
           <div>
-            <div v-if="props.hashData.iteration"><SquareCheck /></div>
-            <div v-else><SquareX /></div>
+            <div v-if="props.hashData.iteration">
+              <SquareCheck class="stroke-success" />
+            </div>
+            <div v-else><SquareX class="stroke-error" /></div>
           </div>
         </div>
 

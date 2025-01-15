@@ -24,7 +24,8 @@ import ThemeController from "./ThemeController.vue";
       <div>
         <p>
           This web application is designed to help you learn about password
-          security and hashing algorithms in a safe and interactive environment.
+          security and hashing algorithms in a simple and interactive
+          environment.
         </p>
       </div>
       <div class="divider"></div>
@@ -40,7 +41,7 @@ import ThemeController from "./ThemeController.vue";
         <div class="collapse-content">
           <p>
             This application is for educational purposes only. Please do not
-            enter any real passwords or personal, sensitive, or confidential
+            enter any real passwords, personal, sensitive, or confidential
             information. Use this tool to experiment with example passwords and
             learn about password hashing safely!
           </p>
@@ -75,11 +76,6 @@ import ThemeController from "./ThemeController.vue";
               applied during your next visit.
             </li>
           </ul>
-
-          <p>
-            Your data is stored locally on your device and is not shared with
-            any third parties.
-          </p>
         </div>
       </div>
 

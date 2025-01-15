@@ -4,7 +4,7 @@
  * https://github.com/Daninet/hash-wasm
  */
 import { HashAlgorithm } from "./interfaces.ts";
-import { md5, sha256, bcrypt, scrypt, argon2id } from "hash-wasm";
+import { md5, sha256, bcrypt, argon2id } from "hash-wasm";
 
 export const algorithms: Record<string, HashAlgorithm> = {
   md5: {
@@ -46,27 +46,27 @@ export const algorithms: Record<string, HashAlgorithm> = {
       });
     },
   },
-  scrypt: {
-    data: {
-      label: "scrypt",
-      salt: true,
-      iteration: true,
-    },
-    function: async (password: string): Promise<string> => {
-      const salt = new Uint8Array(16);
-      window.crypto.getRandomValues(salt);
+  // scrypt: {
+  //   data: {
+  //     label: "scrypt",
+  //     salt: true,
+  //     iteration: true,
+  //   },
+  //   function: async (password: string): Promise<string> => {
+  //     const salt = new Uint8Array(16);
+  //     window.crypto.getRandomValues(salt);
 
-      return await scrypt({
-        password: password,
-        salt,
-        costFactor: 131072,
-        blockSize: 8,
-        parallelism: 1,
-        hashLength: 32,
-        outputType: "hex",
-      });
-    },
-  },
+  //     return await scrypt({
+  //       password: password,
+  //       salt,
+  //       costFactor: 131072,
+  //       blockSize: 8,
+  //       parallelism: 1,
+  //       hashLength: 32,
+  //       outputType: "hex",
+  //     });
+  //   },
+  // },
   argon2id: {
     data: {
       label: "Argon2id",
