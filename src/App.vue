@@ -2,34 +2,29 @@
 <script setup lang="ts">
 // vue and other libraries
 import { ref } from "vue";
+import { TriangleAlert } from "lucide-vue-next";
 
 // components
+import Alert from "./components/Alert.vue";
 import Footer from "./components/Footer.vue";
 import Navbar from "./components/Navbar.vue";
-import Input from "./components/Input.vue";
-import Crypto from "./components/Crypto.vue";
 
-// interfaces
-import { HashData } from "./data/interfaces.ts";
-
-// TODO - variables
-const loading = ref<boolean>(false);
-const hashData = ref<HashData>({ label: "", salt: false, iteration: false });
-const digest = ref<string>("");
+// variables
+const showAlert = ref<boolean>(true);
 </script>
 
 <template>
   <Navbar />
 
-  <div class="flex grow flex-col items-center justify-center">
-    <Input
-      @update:loading="loading = $event"
-      @update:hashData="hashData = $event"
-      @update:digest="digest = $event"
-    />
+  <Alert
+    v-if="showAlert"
+    @update:showAlert="showAlert = $event"
+    text="This application is currently in development. Please note that features may not function as expected and are subject to change."
+  >
+    <TriangleAlert />
+  </Alert>
 
-    <Crypto :loading="loading" :hashData="hashData" :digest="digest" />
-  </div>
+  <RouterView />
 
   <Footer />
 </template>
