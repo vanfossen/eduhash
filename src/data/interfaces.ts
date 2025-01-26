@@ -9,6 +9,7 @@ export interface HashData {
   label: string;
   salt: boolean;
   iteration: boolean;
+  security: string;
 }
 
 /**

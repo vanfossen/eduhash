@@ -12,6 +12,7 @@ export const algorithms: Record<string, HashAlgorithm> = {
       label: "MD5",
       salt: false,
       iteration: false,
+      security: "low",
     },
     function: async (password: string): Promise<string> => {
       return await md5(password);
@@ -22,6 +23,7 @@ export const algorithms: Record<string, HashAlgorithm> = {
       label: "SHA-256",
       salt: false,
       iteration: false,
+      security: "low",
     },
     function: async (password: string): Promise<string> => {
       return await sha256(password);
@@ -32,6 +34,7 @@ export const algorithms: Record<string, HashAlgorithm> = {
       label: "bcrypt",
       salt: true,
       iteration: true,
+      security: "medium",
     },
     function: async (password: string): Promise<string> => {
       // generate salt value
@@ -72,6 +75,7 @@ export const algorithms: Record<string, HashAlgorithm> = {
       label: "Argon2id",
       salt: true,
       iteration: true,
+      security: "strong",
     },
     function: async (password: string): Promise<string> => {
       const salt = new Uint8Array(16);

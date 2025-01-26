@@ -28,24 +28,26 @@ const props = defineProps<{
         <div class="divider"></div>
 
         <div
-          class="grid grid-cols-2 grid-rows-2 items-center justify-items-center"
+          class="grid grid-cols-3 grid-rows-2 items-center justify-items-center"
         >
-          <div>Salt</div>
-          <div>Iteration</div>
+          <div class="m-2 underline">Salt</div>
+          <div class="m-2 underline">Iteration</div>
+          <div class="m-2 underline">Security</div>
 
           <div>
-            <div v-if="props.hashData.salt">
-              <SquareCheck class="stroke-success" />
-            </div>
-            <div v-else><SquareX class="stroke-error" /></div>
+            <SquareCheck v-if="props.hashData.salt" class="stroke-success" />
+            <SquareX v-else class="stroke-error" />
           </div>
 
           <div>
-            <div v-if="props.hashData.iteration">
-              <SquareCheck class="stroke-success" />
-            </div>
-            <div v-else><SquareX class="stroke-error" /></div>
+            <SquareCheck
+              v-if="props.hashData.iteration"
+              class="stroke-success"
+            />
+            <SquareX v-else class="stroke-error" />
           </div>
+
+          <div>{{ props.hashData.security }}</div>
         </div>
 
         <div class="divider"></div>
