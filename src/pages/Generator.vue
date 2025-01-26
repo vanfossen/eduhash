@@ -12,7 +12,12 @@ import { HashData } from "../data/interfaces.ts";
 
 // variables
 const loading = ref<boolean>(false);
-const hashData = ref<HashData>({ label: "", salt: false, iteration: false });
+const hashData = ref<HashData>({
+  label: "",
+  salt: false,
+  iteration: false,
+  security: "",
+});
 const digest = ref<string>("");
 </script>
 
