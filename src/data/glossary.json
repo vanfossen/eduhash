@@ -1,0 +1,44 @@
+[
+  {
+    "word": "Lorem Ipsum",
+    "definition": "A dummy or placeholder text commonly used in graphic design, publishing, and web development to fill empty spaces in a layout that does not yet have content.",
+    "sources": [
+      {
+        "title": "wikipedia.org",
+        "url": "https://en.wikipedia.org/wiki/Lorem_ipsum"
+      },
+      {
+        "title": "lipsum.com",
+        "url": "https://www.lipsum.com/"
+      }
+    ]
+  },
+  {
+    "word": "Lorem Ipsum",
+    "definition": "A dummy or placeholder text commonly used in graphic design, publishing, and web development to fill empty spaces in a layout that does not yet have content.",
+    "sources": [
+      {
+        "title": "wikipedia.org",
+        "url": "https://en.wikipedia.org/wiki/Lorem_ipsum"
+      },
+      {
+        "title": "lipsum.com",
+        "url": "https://www.lipsum.com/"
+      }
+    ]
+  },
+  {
+    "word": "Lorem Ipsum",
+    "definition": "A dummy or placeholder text commonly used in graphic design, publishing, and web development to fill empty spaces in a layout that does not yet have content.",
+    "sources": [
+      {
+        "title": "wikipedia.org",
+        "url": "https://en.wikipedia.org/wiki/Lorem_ipsum"
+      },
+      {
+        "title": "lipsum.com",
+        "url": "https://www.lipsum.com/"
+      }
+    ]
+  }
+]
