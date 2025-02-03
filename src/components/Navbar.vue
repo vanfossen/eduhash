@@ -27,16 +27,25 @@ const navItems = [
           class="menu dropdown-content menu-sm z-[1] mt-3 w-52 rounded-box bg-base-100 p-2 shadow"
         >
           <li v-for="item in navItems" :key="item.route">
-            <RouterLink :to="item.route">{{ item.name }}</RouterLink>
+            <RouterLink :to="item.route" active-class="font-bold underline">{{
+              item.name
+            }}</RouterLink>
           </li>
         </ul>
       </div>
-      <RouterLink class="btn btn-ghost text-xl" to="/">EduHash</RouterLink>
+      <RouterLink
+        class="btn btn-ghost text-xl"
+        to="/"
+        active-class="font-black underline"
+        >EduHash</RouterLink
+      >
     </div>
     <div class="navbar-center hidden lg:flex">
       <ul class="menu menu-horizontal hidden px-1 lg:flex">
-        <li v-for="item in navItems" :key="item.route">
-          <RouterLink :to="item.route">{{ item.name }}</RouterLink>
+        <li v-for="item in navItems" :key="item.route" class="mx-2">
+          <RouterLink :to="item.route" active-class="font-bold underline">
+            {{ item.name }}
+          </RouterLink>
         </li>
       </ul>
     </div>
