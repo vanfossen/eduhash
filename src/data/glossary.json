@@ -1,43 +1,81 @@
 [
   {
-    "word": "Lorem Ipsum",
-    "definition": "A dummy or placeholder text commonly used in graphic design, publishing, and web development to fill empty spaces in a layout that does not yet have content.",
+    "word": "Hashing",
+    "definition": "The process of entering a message (text) into a mathematical function/algorithm that returns a string of characters with a predetermined length. Cryptographic hashing algorithms prioritize one-wayness and collision resistance.",
     "sources": [
       {
-        "title": "wikipedia.org",
-        "url": "https://en.wikipedia.org/wiki/Lorem_ipsum"
+        "title": "okta.com",
+        "url": "https://www.okta.com/identity-101/hashing-algorithms/"
       },
       {
-        "title": "lipsum.com",
-        "url": "https://www.lipsum.com/"
+        "title": "owasp.org",
+        "url": "https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html"
       }
     ]
   },
   {
-    "word": "Lorem Ipsum",
-    "definition": "A dummy or placeholder text commonly used in graphic design, publishing, and web development to fill empty spaces in a layout that does not yet have content.",
+    "word": "One-Wayness",
+    "definition": "The property that makes it computationally infeasible (but not impossible) to reverse the hashing process. This processes is known as being pre-image resistant.",
     "sources": [
       {
-        "title": "wikipedia.org",
-        "url": "https://en.wikipedia.org/wiki/Lorem_ipsum"
+        "title": "okta.com",
+        "url": "https://www.okta.com/identity-101/hashing-algorithms/"
       },
       {
-        "title": "lipsum.com",
-        "url": "https://www.lipsum.com/"
+        "title": "wikipedia.org",
+        "url": "https://en.wikipedia.org/wiki/Cryptographic_hash_function"
       }
     ]
   },
   {
-    "word": "Lorem Ipsum",
-    "definition": "A dummy or placeholder text commonly used in graphic design, publishing, and web development to fill empty spaces in a layout that does not yet have content.",
+    "word": "Collision Resistance",
+    "definition": "The property that makes it computationally infeasible to find a pair of messages (text) that produce the same hash output.",
     "sources": [
       {
-        "title": "wikipedia.org",
-        "url": "https://en.wikipedia.org/wiki/Lorem_ipsum"
+        "title": "nist.gov",
+        "url": "https://csrc.nist.gov/glossary/term/collision_resistance"
       },
       {
-        "title": "lipsum.com",
-        "url": "https://www.lipsum.com/"
+        "title": "wikipedia.org",
+        "url": "https://en.wikipedia.org/wiki/Cryptographic_hash_function"
+      }
+    ]
+  },
+  {
+    "word": "Salt",
+    "definition": "A unique, randomly generated string of characters that is appended to a password before hashing. Its primary purpose is to ensure that identical passwords produce different hash values. Defends against precomputed hash tables (rainbow tables).",
+    "sources": [
+      {
+        "title": "owasp.org",
+        "url": "https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html"
+      },
+      {
+        "title": "wikipedia.org",
+        "url": "https://en.wikipedia.org/wiki/Salt_(cryptography)"
+      }
+    ]
+  },
+  {
+    "word": "Rainbow Table",
+    "definition": "A pre-computed table/database of hashed passwords, designed to assist malicious users by allows fast lookups of plaintext passwords corresponding to those hashes.",
+    "sources": [
+      {
+        "title": "proton.me",
+        "url": "https://proton.me/blog/what-is-rainbow-table-attack"
+      },
+      {
+        "title": "wikipedia.org",
+        "url": "https://en.wikipedia.org/wiki/Rainbow_table"
+      }
+    ]
+  },
+  {
+    "word": "Iteration Count",
+    "definition": "The number of times a hash function is applied to a given input. Increasing this count makes it more computationally intensive for malicious individuals to brute-force passwords. This process is also known as work factor.",
+    "sources": [
+      {
+        "title": "owasp.org",
+        "url": "https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html"
       }
     ]
   }
