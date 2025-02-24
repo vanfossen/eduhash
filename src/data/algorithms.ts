@@ -27,7 +27,7 @@ export const algorithms: HashAlgorithm[] = [
     id: "bcrypt",
     name: "bcrypt",
     salt: true,
-    iteration: true,
+    iteration: 11,
     security: SecurityLevel.Medium,
     function: async (password: string, salt: Uint8Array): Promise<string> => {
       const encodedHash = await bcrypt({
@@ -43,7 +43,7 @@ export const algorithms: HashAlgorithm[] = [
     id: "argon2id",
     name: "Argon2id",
     salt: true,
-    iteration: true,
+    iteration: 256,
     security: SecurityLevel.High,
     function: async (password: string, salt: Uint8Array): Promise<string> => {
       const encodedHash = await argon2id({

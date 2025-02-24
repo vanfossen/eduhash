@@ -5,7 +5,7 @@ import { ref, computed } from "vue";
 import { algorithms } from "../data/algorithms.ts";
 import { arrayToBase64, arrayToBase64Bcrypt } from "../utils/other.ts";
 import { HashResults } from "../data/interfaces.ts";
-import { SquareCheck, SquareX } from "lucide-vue-next";
+import { SquareX } from "lucide-vue-next";
 
 // variables
 const password = ref<string>("");
@@ -95,7 +95,7 @@ const hasResults = computed(() => {
     </div>
 
     <div
-      class="m-4 w-4/5 max-w-fit overflow-x-auto rounded-2xl border border-black p-4 text-center"
+      class="m-4 w-11/12 max-w-fit overflow-x-auto rounded-2xl border border-black p-4 text-center"
     >
       <span v-if="loading" class="loading loading-bars loading-lg"></span>
 
@@ -108,7 +108,7 @@ const hasResults = computed(() => {
                 <th></th>
                 <th>Salt</th>
                 <th>Hash</th>
-                <th>Iteration</th>
+                <th>Iteration(s)</th>
                 <th>Security</th>
               </tr>
             </thead>
@@ -118,16 +118,21 @@ const hasResults = computed(() => {
               <tr v-for="result in results" :key="result.id">
                 <th>{{ result.name }}</th>
                 <td>
-                  <span v-if="result.salt">{{ result.salt.slice(0, -2) }}</span>
-                  <span v-else><SquareX class="stroke-error" /></span>
+                  <span v-if="result.salt">
+                    {{ result.salt.slice(0, -2) }}
+                  </span>
+                  <span v-else>
+                    <SquareX class="stroke-error" />
+                  </span>
                 </td>
                 <td>{{ result.hash }}</td>
                 <td>
-                  <!-- <span v-if="result.iteration">{{ result.iteration }}</span> -->
                   <span v-if="result.iteration">
-                    <SquareCheck class="stroke-success" />
+                    {{ result.iteration }}
                   </span>
-                  <span v-else><SquareX class="stroke-error" /></span>
+                  <span v-else>
+                    <SquareX class="stroke-error" />
+                  </span>
                 </td>
                 <td>{{ result.security }}</td>
               </tr>

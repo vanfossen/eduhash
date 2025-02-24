@@ -17,7 +17,7 @@ export interface HashAlgorithm {
   id: string;
   name: string;
   salt: boolean;
-  iteration: boolean;
+  iteration: number | boolean;
   security: SecurityLevel;
   function: HashFunction;
 }
@@ -27,7 +27,7 @@ export interface HashResults {
   name: string;
   salt: string | false;
   hash: string;
-  iteration: boolean;
+  iteration: number | boolean;
   security: SecurityLevel;
   function: HashFunction;
 }
