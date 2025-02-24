@@ -3,45 +3,39 @@
 // vue and other libraries
 import { ref, computed } from "vue";
 import { algorithms } from "../data/algorithms.ts";
-
-// icons
-// import { SquareCheck } from "lucide-vue-next";
-// import { SquareX } from "lucide-vue-next";
+import { arrayToBase64, arrayToBase64Bcrypt } from "../utils/other.ts";
+import { HashResults } from "../data/interfaces.ts";
+import { SquareCheck, SquareX } from "lucide-vue-next";
 
 // variables
 const password = ref<string>("");
 const loading = ref<boolean>(false);
-const results = ref<any[]>([]);
+const results = ref<HashResults[]>([]);
 
-// function to check password is input by user
-const clearInput = (): undefined => {
-  password.value = "";
-};
-
-// TODO
+// generate salt and hash
 const handleGenerate = async () => {
   loading.value = true;
 
+  // clear existing result
   results.value = [];
 
   // generate salt
   const salt = new Uint8Array(16);
   window.crypto.getRandomValues(salt);
 
-  // generate function here
+  // generate hashes
   for (const algorithm of algorithms) {
     const hash = await algorithm.function(password.value, salt);
 
     results.value.push({
-      name: algorithm.name,
-      salt: algorithm.salt
-        ? Array.from(salt)
-            .map((b) => b.toString(16).padStart(2, "0"))
-            .join("")
-        : null,
+      ...algorithm,
+      salt:
+        algorithm.id === "bcrypt"
+          ? arrayToBase64Bcrypt(salt)
+          : algorithm.salt
+            ? arrayToBase64(salt)
+            : false,
       hash: hash,
-      iteration: algorithm.iteration,
-      security: algorithm.security,
     });
   }
 
@@ -93,7 +87,7 @@ const hasResults = computed(() => {
       <!-- clear -->
       <button
         class="btn btn-wide my-2"
-        @click="clearInput"
+        @click="password = ''"
         :disabled="isClearDisabled"
       >
         Clear
@@ -121,18 +115,27 @@ const hasResults = computed(() => {
 
             <!-- body -->
             <tbody>
-              <tr v-for="result in results">
+              <tr v-for="result in results" :key="result.id">
                 <th>{{ result.name }}</th>
-                <td>{{ result.salt || false }}</td>
+                <td>
+                  <span v-if="result.salt">{{ result.salt.slice(0, -2) }}</span>
+                  <span v-else><SquareX class="stroke-error" /></span>
+                </td>
                 <td>{{ result.hash }}</td>
-                <td>{{ result.iteration }}</td>
+                <td>
+                  <!-- <span v-if="result.iteration">{{ result.iteration }}</span> -->
+                  <span v-if="result.iteration">
+                    <SquareCheck class="stroke-success" />
+                  </span>
+                  <span v-else><SquareX class="stroke-error" /></span>
+                </td>
                 <td>{{ result.security }}</td>
               </tr>
             </tbody>
           </table>
         </div>
 
-        <div v-else><span>Use generator to view hash values</span></div>
+        <span v-else>Use generator to view hash values</span>
       </div>
     </div>
   </div>

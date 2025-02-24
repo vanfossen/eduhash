@@ -13,9 +13,11 @@ export function arrayToBase64(salt: Uint8Array): string {
 }
 
 /**
- * TODO
+ * implements specific base64 alphabet for bcrypt
+ *
+ * https://en.wikipedia.org/wiki/Bcrypt#base64_encoding_alphabet
  */
-export function uIntArray8toBase64Bcrypt(uint8Array: Uint8Array): string {
+export function arrayToBase64Bcrypt(uint8Array: Uint8Array): string {
   const base64Chars =
     "./ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   let base64 = "";

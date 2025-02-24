@@ -4,28 +4,11 @@
  * https://github.com/Daninet/hash-wasm
  */
 import { md5, sha256, bcrypt, argon2id } from "hash-wasm";
-
-enum SecurityLevel {
-  Insecure = "insecure",
-  Low = "low",
-  Medium = "medium",
-  High = "high",
-}
-
-type HashFunction =
-  | ((password: string) => Promise<string>)
-  | ((password: string, salt: Uint8Array) => Promise<string>);
-
-interface HashAlgorithm {
-  name: string;
-  salt: boolean;
-  iteration: boolean;
-  security: SecurityLevel;
-  function: HashFunction;
-}
+import { HashAlgorithm, SecurityLevel } from "./interfaces.ts";
 
 export const algorithms: HashAlgorithm[] = [
   {
+    id: "md5",
     name: "MD5",
     salt: false,
     iteration: false,
@@ -33,6 +16,7 @@ export const algorithms: HashAlgorithm[] = [
     function: (password: string): Promise<string> => md5(password),
   },
   {
+    id: "sha256",
     name: "SHA-256",
     salt: false,
     iteration: false,
@@ -40,25 +24,29 @@ export const algorithms: HashAlgorithm[] = [
     function: (password: string): Promise<string> => sha256(password),
   },
   {
+    id: "bcrypt",
     name: "bcrypt",
     salt: true,
     iteration: true,
     security: SecurityLevel.Medium,
-    function: (password: string, salt: Uint8Array): Promise<string> =>
-      bcrypt({
+    function: async (password: string, salt: Uint8Array): Promise<string> => {
+      const encodedHash = await bcrypt({
         password: password,
         salt,
         costFactor: 11,
         outputType: "encoded",
-      }),
+      });
+      return encodedHash.substring(29);
+    },
   },
   {
+    id: "argon2id",
     name: "Argon2id",
     salt: true,
     iteration: true,
     security: SecurityLevel.High,
-    function: async (password: string, salt: Uint8Array): Promise<string> =>
-      argon2id({
+    function: async (password: string, salt: Uint8Array): Promise<string> => {
+      const encodedHash = await argon2id({
         password: password,
         salt,
         parallelism: 1,
@@ -66,6 +54,8 @@ export const algorithms: HashAlgorithm[] = [
         memorySize: 512,
         hashLength: 32,
         outputType: "encoded",
-      }),
+      });
+      return encodedHash.split("$")[5]; // Return the encoded hash
+    },
   },
 ];
