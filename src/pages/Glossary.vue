@@ -16,7 +16,7 @@ const glossary = ref(glossaryData);
       <div
         v-for="entry in glossary"
         :key="entry.word"
-        class="card m-4 w-96 border border-black bg-base-100 shadow-xl"
+        class="card m-4 w-96 border border-black bg-base-100 shadow-md"
       >
         <div class="card-body">
           <h2 class="card-title">{{ entry.word }}</h2>

@@ -24,7 +24,7 @@ const navItems = [
         </div>
         <ul
           tabindex="0"
-          class="menu dropdown-content menu-sm z-[1] mt-3 w-52 rounded-box bg-base-100 p-2 shadow"
+          class="menu dropdown-content menu-sm z-[1] mt-3 w-52 rounded-box bg-base-100 p-2"
         >
           <li v-for="item in navItems" :key="item.route">
             <RouterLink :to="item.route" active-class="font-bold underline">{{

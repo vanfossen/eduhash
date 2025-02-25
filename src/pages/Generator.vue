@@ -60,7 +60,7 @@ const hasResults = computed(() => {
 <template>
   <div class="flex grow flex-col items-center justify-center">
     <div
-      class="m-4 flex flex-col items-center rounded-2xl border border-black px-8 py-4 shadow-2xl"
+      class="m-4 flex flex-col items-center rounded-2xl border border-black px-8 py-4 shadow-md"
     >
       <h1 class="mx-2 my-4 text-3xl">Cryptographic Hash Generator</h1>
 
@@ -95,7 +95,7 @@ const hasResults = computed(() => {
     </div>
 
     <div
-      class="m-4 w-11/12 max-w-fit overflow-x-auto rounded-2xl border border-black p-4 text-center"
+      class="m-4 w-11/12 max-w-fit overflow-x-auto rounded-2xl border border-black p-4 text-center shadow-md"
     >
       <span v-if="loading" class="loading loading-bars loading-lg"></span>
 
