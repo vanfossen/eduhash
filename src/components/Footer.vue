@@ -7,14 +7,14 @@
       <p>
         Hosted on
         <a
-          href="https://github.com/vanfossen/vite-vue-ts-tailwind"
+          href="https://github.com/vanfossen/eduhash"
           target="_blank"
           class="link-hover link link-primary"
           >GitHub</a
         >
         with a
         <a
-          href="https://github.com/vanfossen/vite-vue-ts-tailwind/blob/main/LICENSE"
+          href="https://github.com/vanfossen/eduhash/blob/main/LICENSE"
           target="_blank"
           class="link-hover link link-primary"
           >MIT license</a
