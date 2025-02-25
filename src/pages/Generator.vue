@@ -3,75 +3,64 @@
 // vue and other libraries
 import { ref, computed } from "vue";
 import { algorithms } from "../data/algorithms.ts";
-import { DigestOutput, HashData } from "../data/interfaces.ts";
-
-// icons
-import { SquareCheck } from "lucide-vue-next";
+import { arrayToBase64, arrayToBase64Bcrypt } from "../utils/other.ts";
+import { HashResults } from "../data/interfaces.ts";
 import { SquareX } from "lucide-vue-next";
 
 // variables
 const password = ref<string>("");
-const algorithm = ref<string>("");
-const error = ref<string>("");
 const loading = ref<boolean>(false);
-const hashData = ref<HashData>({
-  label: "",
-  salt: false,
-  iteration: false,
-  security: "",
-});
-const digest = ref<DigestOutput>({ hash: "", salt: "" });
+const results = ref<HashResults[]>([]);
 
-// function to check validity of user input
-const validateInput = (): undefined => {
-  if (!password.value) {
-    error.value = "Password is required.";
-    return;
-  }
-
-  if (!algorithm.value) {
-    error.value = "Algorithm is required.";
-    return;
-  }
-
-  error.value = "";
-};
-
-// function to check password is input by user
-const clearInput = (): undefined => {
-  password.value = "";
-  algorithm.value = "";
-  error.value = "";
-};
-
-// TODO
+// generate salt and hash
 const handleGenerate = async () => {
-  validateInput();
   loading.value = true;
 
-  const selectedAlgorithm = algorithms[algorithm.value];
+  // clear existing result
+  results.value = [];
 
-  hashData.value = selectedAlgorithm.data;
-  digest.value = await selectedAlgorithm.function(password.value);
+  // generate salt
+  const salt = new Uint8Array(16);
+  window.crypto.getRandomValues(salt);
+
+  // generate hashes
+  for (const algorithm of algorithms) {
+    const hash = await algorithm.function(password.value, salt);
+
+    results.value.push({
+      ...algorithm,
+      salt:
+        algorithm.id === "bcrypt"
+          ? arrayToBase64Bcrypt(salt)
+          : algorithm.salt
+            ? arrayToBase64(salt)
+            : false,
+      hash: hash,
+    });
+  }
 
   loading.value = false;
 };
 
 // computed property for disabling generate button
 const isGenerateDisabled = computed(() => {
-  return !password.value || !algorithm.value;
+  return !password.value;
 });
 
 // computed property for disabling clear button
 const isClearDisabled = computed(() => {
-  return !password.value && !algorithm.value;
+  return !password.value;
+});
+
+const hasResults = computed(() => {
+  return results.value.length > 0;
 });
 </script>
 
 <template>
   <div class="flex grow flex-col items-center justify-center">
     <div
-      class="m-4 flex flex-col items-center rounded-2xl border border-black px-8 py-4 shadow-2xl"
+      class="m-4 flex flex-col items-center rounded-2xl border border-black px-8 py-4 shadow-md"
     >
       <h1 class="mx-2 my-4 text-3xl">Cryptographic Hash Generator</h1>
 
@@ -86,26 +75,9 @@ const isClearDisabled = computed(() => {
         aria-label="Password"
       />
 
-      <!-- algorithm -->
-      <select
-        class="select select-bordered my-2 w-full max-w-xs"
-        v-model="algorithm"
-        aria-label="Algorithm"
-      >
-        <option disabled selected value="">Select algorithm...</option>
-        <option v-for="(algorithm, key) in algorithms" :key="key" :value="key">
-          {{ algorithm.data.label }}
-        </option>
-      </select>
-
-      <!-- display error message -->
-      <div class="badge badge-error" v-if="error" aria-live="assertive">
-        {{ error }}
-      </div>
-
       <!-- generate -->
       <button
-        class="btn btn-wide my-2 mt-8"
+        class="btn btn-wide my-2"
         @click="handleGenerate"
         :disabled="isGenerateDisabled"
       >
@@ -115,7 +87,7 @@ const isClearDisabled = computed(() => {
       <!-- clear -->
       <button
         class="btn btn-wide my-2"
-        @click="clearInput"
+        @click="password = ''"
         :disabled="isClearDisabled"
       >
         Clear
@@ -123,42 +95,52 @@ const isClearDisabled = computed(() => {
     </div>
 
     <div
-      class="m-4 w-4/5 max-w-fit overflow-x-auto rounded-2xl border border-black bg-base-200 p-4 text-center"
+      class="m-4 w-11/12 max-w-fit overflow-x-auto rounded-2xl border border-black p-4 text-center shadow-md"
     >
       <span v-if="loading" class="loading loading-bars loading-lg"></span>
 
       <div v-else>
-        <div v-if="digest.hash">
-          <h1 class="text-xl">{{ hashData.label }}</h1>
+        <div v-if="hasResults" class="overflow-x-auto">
+          <table class="table table-zebra">
+            <!-- head -->
+            <thead>
+              <tr>
+                <th></th>
+                <th>Salt</th>
+                <th>Hash</th>
+                <th>Iteration(s)</th>
+                <th>Security</th>
+              </tr>
+            </thead>
 
-          <div class="divider"></div>
-
-          <div
-            class="grid grid-cols-3 grid-rows-2 items-center justify-items-center"
-          >
-            <div class="m-2 underline">Salt</div>
-            <div class="m-2 underline">Iteration</div>
-            <div class="m-2 underline">Security</div>
-
-            <div>
-              <span v-if="hashData.salt">{{ digest.salt }}</span>
-              <SquareX v-else class="stroke-error" />
-            </div>
-
-            <div>
-              <SquareCheck v-if="hashData.iteration" class="stroke-success" />
-              <SquareX v-else class="stroke-error" />
-            </div>
-
-            <div>{{ hashData.security }}</div>
-          </div>
-
-          <div class="divider"></div>
-
-          <span>{{ digest.hash }}</span>
+            <!-- body -->
+            <tbody>
+              <tr v-for="result in results" :key="result.id">
+                <th>{{ result.name }}</th>
+                <td>
+                  <span v-if="result.salt">
+                    {{ result.salt.slice(0, -2) }}
+                  </span>
+                  <span v-else>
+                    <SquareX class="stroke-error" />
+                  </span>
+                </td>
+                <td>{{ result.hash }}</td>
+                <td>
+                  <span v-if="result.iteration">
+                    {{ result.iteration }}
+                  </span>
+                  <span v-else>
+                    <SquareX class="stroke-error" />
+                  </span>
+                </td>
+                <td>{{ result.security }}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
 
-        <div v-else><span>Use generator to view hash value</span></div>
+        <span v-else>Use generator to view hash values</span>
       </div>
     </div>
   </div>

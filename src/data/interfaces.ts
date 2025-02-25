@@ -2,28 +2,32 @@
  * src/data/interfaces.ts
  */
 
-/**
- * TODO
- */
-export interface HashData {
-  label: string;
-  salt: boolean;
-  iteration: boolean;
-  security: string;
+export enum SecurityLevel {
+  Insecure = "insecure",
+  Low = "low",
+  Medium = "medium",
+  High = "high",
 }
 
-/**
- * TODO
- */
+type HashFunction =
+  | ((password: string) => Promise<string>)
+  | ((password: string, salt: Uint8Array) => Promise<string>);
+
 export interface HashAlgorithm {
-  data: HashData;
-  function: (password: string) => Promise<DigestOutput>;
+  id: string;
+  name: string;
+  salt: boolean;
+  iteration: number | boolean;
+  security: SecurityLevel;
+  function: HashFunction;
 }
 
-/**
- * TODO
- */
-export interface DigestOutput {
-  hash: string;
+export interface HashResults {
+  id: string;
+  name: string;
   salt: string | false;
+  hash: string;
+  iteration: number | boolean;
+  security: SecurityLevel;
+  function: HashFunction;
 }
